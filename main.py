@@ -1,8 +1,6 @@
 import cv2
 import numpy as np
 import mss
-import pygetwindow as gw
-from time import sleep
 
 def capture_screen():
     with mss.mss() as sct:
@@ -12,15 +10,12 @@ def capture_screen():
         return cv2.cvtColor(frame, cv2.COLOR_BGRA2BGR)  # Convert to BGR format
 
 def get_object_location(template, frame, threshold=0.5):
-    # Convert both frame and template to grayscale
-    frame_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    template_gray = cv2.cvtColor(template, cv2.COLOR_BGR2GRAY)
-    
-    # Perform template matching
-    result = cv2.matchTemplate(frame_gray, template_gray, cv2.TM_CCOEFF_NORMED)
+    """Find object location using template matching with RGB."""
+    # Perform template matching directly on RGB channels
+    result = cv2.matchTemplate(frame, template, cv2.TM_CCOEFF_NORMED)
     loc = np.where(result >= threshold)
     
-    # Find the best match
+    # If matches are found, calculate bounding box
     if len(loc[0]) > 0:
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
         top_left = max_loc
@@ -32,6 +27,7 @@ def main():
     # Load the poker window template
     poker_table = cv2.imread('./assets/poker_table.jpg')  # Template for the poker window
 
+    # Load button templates as RGB
     button_templates = {
         "call_button": cv2.imread('./assets/call_button.png'),
         "check_button": cv2.imread('./assets/check_button.png'),
@@ -57,6 +53,11 @@ def main():
 
         # Loop through each button template and find its location
         for button_name, button_template in button_templates.items():
+            # Skip if the template is not loaded correctly
+            if button_template is None:
+                print(f"Error loading template for {button_name}.")
+                continue
+
             # Apply get_object_location
             button_top_left, button_bottom_right = get_object_location(button_template, frame)
 
@@ -67,11 +68,15 @@ def main():
             if button_top_left and button_bottom_right:
                 cv2.rectangle(frame, button_top_left, button_bottom_right, (0, 255, 0), 2)
 
+        print("="*70)
+
+        # Print the poker table location
         print("Poker Table Location:", (poker_table_top_left, poker_table_bottom_right))
 
-        # Print out the button locations
+        # Print the detected button locations
         for button, location in button_locations.items():
-            print(f"{button}: {location}")
+            if location[0] and location[1]:
+                print(f"{button}: Top-Left: {location[0]}, Bottom-Right: {location[1]}")
 
         # Break on 'q' key press
         if cv2.waitKey(1) & 0xFF == ord('q'):
