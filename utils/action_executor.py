@@ -1,6 +1,6 @@
 import pyautogui
 import time
-from typing import Dict, Any, Tuple, Optional
+from typing import Dict, Any, Tuple, Optional, List
 import json
 import logging
 import os
@@ -15,8 +15,8 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # PyAutoGUI safety settings
-pyautogui.FAILSAFE = True  # Moving mouse to top-left corner will abort the program
-pyautogui.PAUSE = 0.5     # Delay between actions
+pyautogui.FAILSAFE = True
+pyautogui.PAUSE = 0.5
 
 # Button mapping configuration
 BUTTON_MAPPING = {
@@ -32,79 +32,297 @@ BUTTON_MAPPING = {
     "fifty_percent": "fifty_percent_button.png"
 }
 
+# Button groups that are mutually exclusive (cannot appear at the same time)
+MUTUALLY_EXCLUSIVE_BUTTONS = [
+    {"call", "check"},  # Either call or check, not both
+    {"min", "max"},     # Min and max buttons should be far apart
+]
+
+# Button-specific confidence thresholds
+BUTTON_CONFIDENCE = {
+    "fold": 0.6,
+    "call": 0.6,
+    "check": 0.6,
+    "raise": 0.45,  # Lower threshold for raise button
+    "min": 0.6,
+    "max": 0.55,    # Lower threshold for max button
+    "plus": 0.55,   # Lower threshold for plus button
+    "minus": 0.55,  # Lower threshold for minus button
+    "pot": 0.6,
+    "fifty_percent": 0.6
+}
+
+# Expected relative positions (approximate)
+BUTTON_POSITION_RULES = {
+    "fold": {"x_range": (0.6, 0.95), "y_range": (0.5, 0.8)},
+    "call": {"x_range": (0.6, 0.95), "y_range": (0.5, 0.8)},
+    "check": {"x_range": (0.6, 0.95), "y_range": (0.5, 0.8)},
+    "raise": {"x_range": (0.6, 0.95), "y_range": (0.5, 0.8)},
+    "min": {"x_range": (0.6, 0.95), "y_range": (0.5, 0.8)},
+    "max": {"x_range": (0.6, 0.95), "y_range": (0.5, 0.8)},
+    "plus": {"x_range": (0.6, 0.95), "y_range": (0.5, 0.9)},    # Expanded y range for plus
+    "minus": {"x_range": (0.6, 0.95), "y_range": (0.5, 0.9)},   # Expanded y range for minus
+    "pot": {"x_range": (0.6, 0.95), "y_range": (0.5, 0.8)},
+    "fifty_percent": {"x_range": (0.6, 0.95), "y_range": (0.5, 0.8)}
+}
+
 # Button location cache
 BUTTON_LOCATIONS = {name: None for name in BUTTON_MAPPING.keys()}
 
 # Template images path
 TEMPLATE_DIR = Path("assets")
 
-def get_object_location(template: np.ndarray, frame: np.ndarray, threshold: float = 0.8) -> Tuple[Optional[Tuple[int, int]], Optional[Tuple[int, int]]]:
+def is_valid_button_position(button_name: str, x: int, y: int, frame_width: int, frame_height: int) -> bool:
     """
-    Find object location using template matching
-    Args:
-        template: Template image in BGR format
-        frame: Source image in BGR format
-        threshold: Matching confidence threshold
-    Returns:
-        Tuple containing top-left and bottom-right coordinates, or (None, None) if not found
+    Check if button position is valid according to predefined rules
     """
-    # Perform template matching
-    result = cv2.matchTemplate(frame, template, cv2.TM_CCOEFF_NORMED)
-    loc = np.where(result >= threshold)
+    if button_name not in BUTTON_POSITION_RULES:
+        return True
+        
+    rules = BUTTON_POSITION_RULES[button_name]
+    x_ratio = x / frame_width
+    y_ratio = y / frame_height
     
-    # If matches are found, calculate bounding box
-    if len(loc[0]) > 0:
-        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
-        top_left = max_loc
-        bottom_right = (top_left[0] + template.shape[1], top_left[1] + template.shape[0])
-        return top_left, bottom_right
-    return None, None
+    x_valid = rules["x_range"][0] <= x_ratio <= rules["x_range"][1]
+    y_valid = rules["y_range"][0] <= y_ratio <= rules["y_range"][1]
+    
+    if not (x_valid and y_valid):
+        logger.debug(f"Button {button_name} position ({x_ratio:.2f}, {y_ratio:.2f}) outside expected range")
+        return False
+    return True
 
-def locate_button(button_name: str, confidence: float = 0.8) -> Optional[Tuple[int, int]]:
+def check_mutual_exclusion(button_name: str, x: int, y: int, detected_buttons: Dict[str, Tuple[int, int]]) -> bool:
     """
-    Locate button using template matching
-    Args:
-        button_name: Name of the button
-        confidence: Matching confidence threshold
+    Check if button position conflicts with already detected buttons
+    """
+    # Check distance to existing buttons
+    MIN_BUTTON_DISTANCE = 20  # Minimum pixel distance between different buttons
+    
+    for existing_name, (ex, ey) in detected_buttons.items():
+        if existing_name == button_name:
+            continue
+            
+        # Check if buttons are in mutually exclusive groups
+        for group in MUTUALLY_EXCLUSIVE_BUTTONS:
+            if button_name in group and existing_name in group:
+                distance = np.sqrt((x - ex)**2 + (y - ey)**2)
+                if distance < MIN_BUTTON_DISTANCE:
+                    logger.debug(f"Mutually exclusive buttons too close: {button_name} and {existing_name}")
+                    return False
+                
+    return True
+
+def get_object_location(template: np.ndarray, frame: np.ndarray, threshold: float = 0.6) -> List[Tuple[Tuple[int, int], Tuple[int, int], float]]:
+    """
+    Find all potential object locations using template matching
     Returns:
-        Optional[Tuple[int, int]]: Button center coordinates, None if not found
+        List of (top_left, bottom_right, confidence) tuples
     """
+    frame_height, frame_width = frame.shape[:2]
+    results = []
+    
+    # Convert images to grayscale for faster processing
+    gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    gray_template = cv2.cvtColor(template, cv2.COLOR_BGR2GRAY)
+    
+    # Try different scales
+    scales = [1.0, 0.75, 0.5, 1.25]
+    
+    for scale in scales:
+        width = int(template.shape[1] * scale)
+        height = int(template.shape[0] * scale)
+        
+        if width >= frame_width or height >= frame_height:
+            continue
+            
+        # Resize template
+        resized_template = cv2.resize(gray_template, (width, height))
+        
+        # Try template matching
+        try:
+            result = cv2.matchTemplate(gray_frame, resized_template, cv2.TM_CCOEFF_NORMED)
+            locations = np.where(result >= threshold)
+            
+            for y, x in zip(*locations):
+                if x + width <= frame_width and y + height <= frame_height:
+                    confidence = result[y, x]
+                    top_left = (x, y)
+                    bottom_right = (x + width, y + height)
+                    results.append((top_left, bottom_right, confidence))
+                    
+        except Exception as e:
+            logger.debug(f"Template matching failed for scale {scale}: {str(e)}")
+            continue
+    
+    # Sort by confidence and remove duplicates
+    results.sort(key=lambda x: x[2], reverse=True)
+    filtered_results = []
+    for r in results:
+        # Check if this result overlaps with any existing result
+        is_duplicate = False
+        for f in filtered_results:
+            x1, y1 = r[0]
+            x2, y2 = f[0]
+            if abs(x1 - x2) < 10 and abs(y1 - y2) < 10:  # If centers are close
+                is_duplicate = True
+                break
+        if not is_duplicate:
+            filtered_results.append(r)
+    
+    return filtered_results[:5]  # Return top 5 unique results
+
+def locate_button(button_name: str, confidence: float = 0.6, detected_buttons: Dict[str, Tuple[int, int]] = None) -> Optional[Tuple[int, int]]:
+    """
+    Locate button using template matching with additional validation
+    """
+    if detected_buttons is None:
+        detected_buttons = {}
+        
     if button_name not in BUTTON_MAPPING:
         logger.error(f"Unknown button name: {button_name}")
         return None
         
+    # Use button-specific confidence threshold
+    button_confidence = BUTTON_CONFIDENCE.get(button_name, confidence)
+        
     template_path = TEMPLATE_DIR / BUTTON_MAPPING[button_name]
-    
     if not template_path.exists():
         logger.error(f"Button template image not found: {template_path}")
         return None
     
     try:
-        # Load template
         template = cv2.imread(str(template_path))
         if template is None:
             logger.error(f"Failed to load template image: {template_path}")
             return None
             
-        # Capture current screen
         screen = capture_screen()
+        screen_height, screen_width = screen.shape[:2]
         
-        # Find button location
-        top_left, bottom_right = get_object_location(template, screen, confidence)
+        # Get all potential matches
+        matches = get_object_location(template, screen, button_confidence)
         
-        if top_left and bottom_right:
-            # Calculate center point
-            center_x = top_left[0] + template.shape[1] // 2
-            center_y = top_left[1] + template.shape[0] // 2
-            logger.info(f"Found button {button_name} at ({center_x}, {center_y})")
+        # Debug: Save template and screen
+        debug_dir = Path("debug")
+        debug_dir.mkdir(exist_ok=True)
+        cv2.imwrite(str(debug_dir / f"{button_name}_template.png"), template)
+        cv2.imwrite(str(debug_dir / "current_screen.png"), screen)
+        
+        # Debug: Draw all potential matches
+        debug_screen = screen.copy()
+        for top_left, bottom_right, match_confidence in matches:
+            center_x = top_left[0] + (bottom_right[0] - top_left[0]) // 2
+            center_y = top_left[1] + (bottom_right[1] - top_left[1]) // 2
+            x_ratio = center_x / screen_width
+            y_ratio = center_y / screen_height
+            
+            # Draw rectangle with different colors based on validation
+            color = (0, 0, 255)  # Red for invalid matches
+            
+            # Check position validity
+            position_valid = is_valid_button_position(button_name, center_x, center_y, screen_width, screen_height)
+            if position_valid:
+                color = (255, 0, 0)  # Blue for position-valid matches
+                
+                # Check mutual exclusion
+                if check_mutual_exclusion(button_name, center_x, center_y, detected_buttons):
+                    color = (0, 255, 0)  # Green for fully valid matches
+            
+            cv2.rectangle(debug_screen, top_left, bottom_right, color, 2)
+            cv2.putText(debug_screen, 
+                       f"{button_name} ({match_confidence:.2f}) ({x_ratio:.2f}, {y_ratio:.2f})", 
+                       (top_left[0], top_left[1] - 10),
+                       cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1)
+        
+        cv2.imwrite(str(debug_dir / f"{button_name}_all_matches.png"), debug_screen)
+        
+        # Try matches in order of confidence until we find a valid one
+        for top_left, bottom_right, match_confidence in matches:
+            center_x = top_left[0] + (bottom_right[0] - top_left[0]) // 2
+            center_y = top_left[1] + (bottom_right[1] - top_left[1]) // 2
+            
+            # Debug position information
+            x_ratio = center_x / screen_width
+            y_ratio = center_y / screen_height
+            logger.debug(f"Checking match for {button_name} at ({x_ratio:.2f}, {y_ratio:.2f}) with confidence {match_confidence:.3f}")
+            
+            # Validate position
+            if not is_valid_button_position(button_name, center_x, center_y, screen_width, screen_height):
+                logger.debug(f"Position validation failed for {button_name}")
+                continue
+                
+            # Check mutual exclusion
+            if not check_mutual_exclusion(button_name, center_x, center_y, detected_buttons):
+                logger.debug(f"Mutual exclusion check failed for {button_name}")
+                continue
+            
+            # Valid match found
+            logger.info(f"Found button {button_name} at ({center_x}, {center_y}) with confidence {match_confidence:.3f}")
+            
+            # Debug: Draw final detection
+            debug_screen = screen.copy()
+            cv2.rectangle(debug_screen, top_left, bottom_right, (0, 255, 0), 2)
+            cv2.putText(debug_screen, 
+                       f"{button_name} ({match_confidence:.2f}) ({x_ratio:.2f}, {y_ratio:.2f})", 
+                       (top_left[0], top_left[1] - 10),
+                       cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 1)
+            cv2.imwrite(str(debug_dir / f"{button_name}_detected.png"), debug_screen)
+            
             return (center_x, center_y)
-        else:
-            logger.warning(f"Button not found: {button_name}")
-            return None
+            
+        logger.warning(f"No valid match found for button: {button_name}")
+        return None
             
     except Exception as e:
         logger.error(f"Error locating button {button_name}: {str(e)}")
         return None
+
+def setup_button_locations(confidence: float = 0.6) -> bool:
+    """
+    Set up all button locations with mutual exclusion checks
+    """
+    detected = {}
+    
+    # First locate the main action buttons in specific order
+    main_buttons = ["call", "fold", "raise"]  # Check call first as it's most reliable
+    for button_name in main_buttons:
+        location = locate_button(button_name, confidence, detected)
+        if location:
+            detected[button_name] = location
+            BUTTON_LOCATIONS[button_name] = location
+    
+    # If we found call, don't look for check
+    if not BUTTON_LOCATIONS.get("call"):
+        location = locate_button("check", confidence, detected)
+        if location:
+            detected["check"] = location
+            BUTTON_LOCATIONS["check"] = location
+    
+    # Then locate the secondary buttons
+    secondary_buttons = ["min", "max", "pot", "fifty_percent", "plus", "minus"]
+    for button_name in secondary_buttons:
+        location = locate_button(button_name, confidence, detected)
+        if location:
+            detected[button_name] = location
+            BUTTON_LOCATIONS[button_name] = location
+    
+    # Check if we have the minimum required buttons
+    has_call_or_check = bool(BUTTON_LOCATIONS.get("call") or BUTTON_LOCATIONS.get("check"))
+    has_fold = bool(BUTTON_LOCATIONS.get("fold"))
+    has_raise = bool(BUTTON_LOCATIONS.get("raise"))
+    
+    if not (has_call_or_check and has_fold and has_raise):
+        missing = []
+        if not has_fold:
+            missing.append("fold")
+        if not has_raise:
+            missing.append("raise")
+        if not has_call_or_check:
+            missing.append("call/check")
+        logger.error(f"Missing required buttons: {missing}")
+        return False
+        
+    return True
 
 def get_current_amount() -> Optional[float]:
     """
@@ -149,31 +367,6 @@ def get_current_amount() -> Optional[float]:
     except Exception as e:
         logger.error(f"Error getting current amount: {str(e)}")
         return None
-
-def setup_button_locations(confidence: float = 0.8) -> bool:
-    """
-    Set up all button locations using template matching
-    Args:
-        confidence: Matching confidence threshold
-    Returns:
-        bool: Whether all required buttons were successfully located
-    """
-    # Update all button locations
-    for button_name in BUTTON_MAPPING.keys():
-        location = locate_button(button_name, confidence)
-        if location:
-            BUTTON_LOCATIONS[button_name] = location
-            logger.info(f"Successfully located button {button_name}: {location}")
-    
-    # Check if all required buttons are found
-    required_buttons = ["fold", "call", "check", "raise"]
-    missing_buttons = [btn for btn in required_buttons if not BUTTON_LOCATIONS[btn]]
-    
-    if missing_buttons:
-        logger.error(f"Missing required buttons: {missing_buttons}")
-        return False
-    
-    return True
 
 def execute_action(action: Dict[str, Any]) -> bool:
     """
