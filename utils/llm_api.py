@@ -102,8 +102,7 @@ class LLMAnalyzer:
                             {
                                 "type": "image_url",
                                 "image_url": {
-                                    "url": f"data:image/jpeg;base64,{image_base64}",
-                                    "detail": "high"
+                                    "url": f"data:image/jpeg;base64,{image_base64}"
                                 }
                             }
                         ]
@@ -116,31 +115,53 @@ class LLMAnalyzer:
             raw_response = response.choices[0].message.content
             logger.info(f"Raw LLM response:\n{raw_response}")
             
-            # Parse JSON string from response
             try:
-                # Extract JSON part
-                json_parts = raw_response.split("```")
-                if len(json_parts) >= 2:
-                    json_str = json_parts[1].strip()
-                    if json_str.startswith("json"):
-                        json_str = json_str[4:].strip()
+                # Remove code block markers and clean up the string
+                clean_response = raw_response.replace('```', '').strip()
+                if clean_response.startswith('json'):
+                    clean_response = clean_response[4:].strip()
+                
+                # Log cleaned response
+                logger.info(f"Cleaned response:\n{clean_response}")
+                
+                # Parse outer JSON
+                outer_json = json.loads(clean_response)
+                
+                # Get boardState string and clean it
+                board_state_str = outer_json.get("boardState", "{}")
+                
+                # Remove any surrounding quotes and unescape
+                if board_state_str.startswith('"') and board_state_str.endswith('"'):
+                    board_state_str = board_state_str[1:-1]
+                board_state_str = board_state_str.replace('\\"', '"').replace('\\\\', '\\')
+                
+                # Remove any trailing quotes (this is the fix for the current issue)
+                board_state_str = board_state_str.rstrip('"')
+                
+                # Log cleaned boardState
+                logger.info(f"Cleaned boardState string:\n{board_state_str}")
+                
+                try:
+                    # Parse boardState
+                    board_state = json.loads(board_state_str)
                     
-                    # Log extracted JSON string
-                    logger.info(f"Extracted JSON string:\n{json_str}")
+                    # Validate the parsed state
+                    required_fields = ["isGameOver", "communityCards", "holeCards", "currentPotValue", "whoRaised"]
+                    if not all(field in board_state for field in required_fields):
+                        missing_fields = [field for field in required_fields if field not in board_state]
+                        logger.error(f"Missing required fields in board state: {missing_fields}")
+                        raise ValueError(f"Missing required fields: {missing_fields}")
                     
-                    result = json.loads(json_str)
+                    # Log final parsed state
+                    logger.info(f"Successfully parsed board state:\n{json.dumps(board_state, indent=2)}")
                     
-                    # Parse the inner boardState JSON string
-                    if isinstance(result.get("boardState"), str):
-                        board_state = json.loads(result["boardState"])
-                        logger.info(f"Parsed board state:\n{json.dumps(board_state, indent=2)}")
-                        return {"boardState": json.dumps(board_state)}
-                    else:
-                        logger.warning("boardState is not a string, returning as is")
-                        return result
-                else:
-                    raise ValueError("No JSON found between ``` markers")
+                    return {"boardState": json.dumps(board_state)}
                     
+                except json.JSONDecodeError as je:
+                    logger.error(f"Error parsing boardState JSON: {str(je)}")
+                    logger.error(f"Problematic boardState string:\n{board_state_str}")
+                    raise
+                
             except Exception as parse_error:
                 logger.error(f"Error parsing response: {str(parse_error)}")
                 logger.error(f"Problematic response:\n{raw_response}")

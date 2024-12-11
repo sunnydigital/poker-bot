@@ -136,12 +136,23 @@ Make sure to provide a detailed reasoning for your decision.
             Dict: Parsed action dictionary
         """
         try:
+            # Clean up the response string
+            response = response.replace('\n', ' ').replace('\r', '')
+            
             # Try to find JSON in the response
             start_idx = response.find('{')
             end_idx = response.rfind('}')
             if start_idx != -1 and end_idx != -1:
                 json_str = response[start_idx:end_idx + 1]
+                # Clean up the JSON string
+                json_str = json_str.replace('\t', ' ')
+                # Remove multiple spaces
+                while '  ' in json_str:
+                    json_str = json_str.replace('  ', ' ')
+                
+                logger.debug(f"Cleaned JSON string:\n{json_str}")
                 decision = json.loads(json_str)
+                logger.info(f"Successfully parsed decision: {json.dumps(decision, indent=2)}")
                 return decision
             else:
                 error_msg = "No valid JSON found in response"

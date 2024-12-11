@@ -29,3 +29,8 @@ wheels/
 .vscode/
 *.swp
 *.swo 
+
+# Logs and Debug
+logs/
+debug/
+*.log 
