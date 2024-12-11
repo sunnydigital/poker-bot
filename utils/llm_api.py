@@ -86,7 +86,7 @@ class LLMAnalyzer:
             logger.info("Starting poker image analysis")
             
             response = self.client.chat.completions.create(
-                model="gpt-4o-mini",
+                model="gpt-4o",
                 messages=[
                     {
                         "role": "system",
@@ -97,7 +97,7 @@ class LLMAnalyzer:
                         "content": [
                             {
                                 "type": "text",
-                                "text": "Analyze this poker table image and extract the game state."
+                                "text": "Analyze this poker table image and extract the game state. Return the response in a single line without any formatting."
                             },
                             {
                                 "type": "image_url",
@@ -121,6 +121,9 @@ class LLMAnalyzer:
                 if clean_response.startswith('json'):
                     clean_response = clean_response[4:].strip()
                 
+                # Remove all whitespace and newlines
+                clean_response = ''.join(clean_response.split())
+                
                 # Log cleaned response
                 logger.info(f"Cleaned response:\n{clean_response}")
                 
@@ -135,8 +138,11 @@ class LLMAnalyzer:
                     board_state_str = board_state_str[1:-1]
                 board_state_str = board_state_str.replace('\\"', '"').replace('\\\\', '\\')
                 
-                # Remove any trailing quotes (this is the fix for the current issue)
+                # Remove any trailing quotes
                 board_state_str = board_state_str.rstrip('"')
+                
+                # Remove all whitespace and newlines
+                board_state_str = ''.join(board_state_str.split())
                 
                 # Log cleaned boardState
                 logger.info(f"Cleaned boardState string:\n{board_state_str}")
@@ -152,8 +158,9 @@ class LLMAnalyzer:
                         logger.error(f"Missing required fields in board state: {missing_fields}")
                         raise ValueError(f"Missing required fields: {missing_fields}")
                     
-                    # Log final parsed state
-                    logger.info(f"Successfully parsed board state:\n{json.dumps(board_state, indent=2)}")
+                    # Format the output nicely for logging
+                    formatted_state = json.dumps(board_state, indent=2)
+                    logger.info(f"Successfully parsed board state:\n{formatted_state}")
                     
                     return {"boardState": json.dumps(board_state)}
                     
