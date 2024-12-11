@@ -1,16 +1,15 @@
 import numpy as np
-from PIL import ImageGrab
+import cv2
+import mss
 
-def capture_screen():
+def capture_screen() -> np.ndarray:
     """
     Capture current screen state
     Returns:
-        numpy.ndarray: Screenshot as numpy array
+        np.ndarray: Screenshot as BGR format numpy array
     """
-    # Capture full screen using PIL's ImageGrab
-    screenshot = ImageGrab.grab()
-    
-    # Convert PIL image to numpy array
-    screen_np = np.array(screenshot)
-    
-    return screen_np 
+    with mss.mss() as sct:
+        # Capture the primary monitor
+        screenshot = sct.grab(sct.monitors[1])
+        frame = np.array(screenshot)
+        return cv2.cvtColor(frame, cv2.COLOR_BGRA2BGR)  # Convert to BGR format for OpenCV
