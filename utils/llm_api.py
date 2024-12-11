@@ -50,7 +50,7 @@ class LLMAnalyzer:
         Args:
             api_key: OpenAI API key, if None will get from environment variables
         """
-        self.api_key = api_key or os.getenv("OPENAI_API_KEY")
+        self.api_key = api_key or os.getenv("GPT_API_KEY")
         if not self.api_key:
             raise ValueError("OpenAI API key is required. Please set it in .env file or pass it directly.")
         self.client = OpenAI(api_key=self.api_key)

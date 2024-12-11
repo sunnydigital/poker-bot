@@ -15,7 +15,7 @@ class PokerAgent:
             model_name: LLM model name to use
         """
         self.model = model_name
-        self.client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+        self.client = OpenAI(api_key=os.getenv("GPT_API_KEY"))
         
     def get_action(self, game_state) -> Dict[str, Any]:
         """
