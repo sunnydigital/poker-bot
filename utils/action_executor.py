@@ -199,8 +199,8 @@ def locate_button(button_name: str, confidence: float = 0.6, detected_buttons: D
         screen = capture_screen()
         screen_height, screen_width = screen.shape[:2]
         
-        # Get all potential matches
-        matches = get_object_location(template, screen, button_confidence)
+        # Pass button_name to get_object_location
+        matches = get_object_location(template, screen, button_confidence, button_name)
         
         # Debug: Save template and screen
         debug_dir = Path("debug")
