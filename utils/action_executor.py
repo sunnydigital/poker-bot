@@ -295,12 +295,20 @@ def locate_button(button_name: str, confidence: float = 0.6, detected_buttons: D
         logger.error(f"Error locating button {button_name}: {str(e)}")
         return None
 
+def clear_button_locations():
+    """Clear all stored button locations"""
+    for key in BUTTON_LOCATIONS:
+        BUTTON_LOCATIONS[key] = None
+
 def setup_button_locations(confidence: float = 0.6) -> bool:
     """
     Set up all button locations with mutual exclusion checks
     Returns:
         bool: True if any button is found, False if no buttons are found
     """
+    # Clear previous locations first
+    clear_button_locations()
+    
     detected = {}
     
     # Locate the main action buttons

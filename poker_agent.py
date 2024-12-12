@@ -96,7 +96,7 @@ class PokerAgent:
         action_choices = "/".join([btn for btn in available_buttons])
         
         prompt = f"""
-You are a professional poker player. Analyze the current game state and make a strategic decision based on the available actions.
+You are a professional poker player. Analyze the current game state and make a strategic decision based on the available actions and GTO strategy.
 
 Current game state:
 - Community Cards: {game_state.community_cards}
