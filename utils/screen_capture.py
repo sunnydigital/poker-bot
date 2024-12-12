@@ -14,7 +14,7 @@ def capture_screen() -> np.ndarray:
     with mss.mss() as sct:
         # Get monitor information
         monitor = sct.monitors[1]  # Primary monitor
-        logger.info(f"Monitor information: {monitor}")
+        # logger.info(f"Monitor information: {monitor}")
         
         # Calculate the actual screen dimensions
         monitor_width = monitor["width"]
@@ -30,10 +30,10 @@ def capture_screen() -> np.ndarray:
         # Check if we need to handle Retina display scaling
         if frame.shape[1] > monitor_width or frame.shape[0] > monitor_height:
             scale_factor = min(monitor_width / frame.shape[1], monitor_height / frame.shape[0])
-            logger.info(f"Detected Retina display, applying scale factor: {scale_factor}")
+            # logger.info(f"Detected Retina display, applying scale factor: {scale_factor}")
             
             # Resize the frame to match the actual screen dimensions
             frame = cv2.resize(frame, (monitor_width, monitor_height))
         
-        logger.info(f"Captured frame size: {frame.shape}")
+        # logger.info(f"Captured frame size: {frame.shape}")
         return frame

@@ -237,75 +237,58 @@ def locate_button(button_name: str, confidence: float = 0.6, detected_buttons: D
         # Get all potential matches
         matches = get_object_location(template, screen, button_confidence)
         
-        # Debug: Save template and screen
-        debug_dir = Path("debug")
-        debug_dir.mkdir(exist_ok=True)
-        cv2.imwrite(str(debug_dir / f"{button_name}_template.png"), template)
-        cv2.imwrite(str(debug_dir / "current_screen.png"), screen)
-        
-        # Debug: Draw all potential matches
-        debug_screen = screen.copy()
-        for top_left, bottom_right, match_confidence in matches:
-            center_x = top_left[0] + (bottom_right[0] - top_left[0]) // 2
-            center_y = top_left[1] + (bottom_right[1] - top_left[1]) // 2
-            x_ratio = center_x / screen_width
-            y_ratio = center_y / screen_height
+        # Save debug images only if debug logging is enabled
+        if logger.isEnabledFor(logging.DEBUG):
+            debug_dir = Path("debug")
+            debug_dir.mkdir(exist_ok=True)
+            cv2.imwrite(str(debug_dir / f"{button_name}_template.png"), template)
+            cv2.imwrite(str(debug_dir / "current_screen.png"), screen)
             
-            # Draw rectangle with different colors based on validation
-            color = (0, 0, 255)  # Red for invalid matches
-            
-            # Check position validity
-            position_valid = is_valid_button_position(button_name, center_x, center_y, screen_width, screen_height, screen)
-            if position_valid:
-                color = (255, 0, 0)  # Blue for position-valid matches
+            # Debug: Draw all potential matches
+            debug_screen = screen.copy()
+            for top_left, bottom_right, match_confidence in matches:
+                center_x = top_left[0] + (bottom_right[0] - top_left[0]) // 2
+                center_y = top_left[1] + (bottom_right[1] - top_left[1]) // 2
+                x_ratio = center_x / screen_width
+                y_ratio = center_y / screen_height
                 
-                # Check mutual exclusion
-                if check_mutual_exclusion(button_name, center_x, center_y, detected_buttons):
-                    color = (0, 255, 0)  # Green for fully valid matches
+                # Draw rectangle with different colors based on validation
+                color = (0, 0, 255)  # Red for invalid matches
+                
+                # Check position validity
+                position_valid = is_valid_button_position(button_name, center_x, center_y, screen_width, screen_height, screen)
+                if position_valid:
+                    color = (255, 0, 0)  # Blue for position-valid matches
+                    
+                    # Check mutual exclusion
+                    if check_mutual_exclusion(button_name, center_x, center_y, detected_buttons):
+                        color = (0, 255, 0)  # Green for fully valid matches
+                
+                cv2.rectangle(debug_screen, top_left, bottom_right, color, 2)
+                cv2.putText(debug_screen, 
+                           f"{button_name} ({match_confidence:.2f}) ({x_ratio:.2f}, {y_ratio:.2f})", 
+                           (top_left[0], top_left[1] - 10),
+                           cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1)
             
-            cv2.rectangle(debug_screen, top_left, bottom_right, color, 2)
-            cv2.putText(debug_screen, 
-                       f"{button_name} ({match_confidence:.2f}) ({x_ratio:.2f}, {y_ratio:.2f})", 
-                       (top_left[0], top_left[1] - 10),
-                       cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1)
-        
-        cv2.imwrite(str(debug_dir / f"{button_name}_all_matches.png"), debug_screen)
+            cv2.imwrite(str(debug_dir / f"{button_name}_all_matches.png"), debug_screen)
         
         # Try matches in order of confidence until we find a valid one
         for top_left, bottom_right, match_confidence in matches:
             center_x = top_left[0] + (bottom_right[0] - top_left[0]) // 2
             center_y = top_left[1] + (bottom_right[1] - top_left[1]) // 2
             
-            # Debug position information
-            x_ratio = center_x / screen_width
-            y_ratio = center_y / screen_height
-            logger.debug(f"Checking match for {button_name} at ({x_ratio:.2f}, {y_ratio:.2f}) with confidence {match_confidence:.3f}")
-            
             # Validate position
             if not is_valid_button_position(button_name, center_x, center_y, screen_width, screen_height, screen):
-                logger.debug(f"Position validation failed for {button_name}")
                 continue
                 
             # Check mutual exclusion
             if not check_mutual_exclusion(button_name, center_x, center_y, detected_buttons):
-                logger.debug(f"Mutual exclusion check failed for {button_name}")
                 continue
             
             # Valid match found
-            logger.info(f"Found button {button_name} at ({center_x}, {center_y}) with confidence {match_confidence:.3f}")
-            
-            # Debug: Draw final detection
-            debug_screen = screen.copy()
-            cv2.rectangle(debug_screen, top_left, bottom_right, (0, 255, 0), 2)
-            cv2.putText(debug_screen, 
-                       f"{button_name} ({match_confidence:.2f}) ({x_ratio:.2f}, {y_ratio:.2f})", 
-                       (top_left[0], top_left[1] - 10),
-                       cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 1)
-            cv2.imwrite(str(debug_dir / f"{button_name}_detected.png"), debug_screen)
-            
+            logger.debug(f"Found {button_name} button at ({center_x}, {center_y})")
             return (center_x, center_y)
             
-        logger.warning(f"No valid match found for button: {button_name}")
         return None
             
     except Exception as e:
@@ -327,9 +310,6 @@ def setup_button_locations(confidence: float = 0.6) -> bool:
         if location:
             detected[button_name] = location
             BUTTON_LOCATIONS[button_name] = location
-        else:
-            logger.debug(f"Button {button_name} not found during setup")
-            BUTTON_LOCATIONS[button_name] = None
     
     # If we found call, don't look for check
     if not BUTTON_LOCATIONS.get("call"):
@@ -337,18 +317,13 @@ def setup_button_locations(confidence: float = 0.6) -> bool:
         if location:
             detected["check"] = location
             BUTTON_LOCATIONS["check"] = location
-        else:
-            logger.debug("Check button not found during setup")
-            BUTTON_LOCATIONS["check"] = None
     
     # Check if any buttons were found
     found_buttons = [name for name, loc in BUTTON_LOCATIONS.items() if loc is not None]
     if found_buttons:
-        logger.info(f"Found buttons: {found_buttons}")
+        logger.debug(f"Found buttons: {found_buttons}")
         return True
-    else:
-        logger.debug("No buttons found")
-        return False
+    return False
 
 def get_current_amount() -> Optional[float]:
     """
@@ -395,26 +370,12 @@ def get_current_amount() -> Optional[float]:
         return None
 
 def execute_action(action: Dict[str, Any]) -> bool:
-    """
-    Execute poker action
-    Args:
-        action: Action information dictionary, format:
-        {
-            "action": "fold/call/check/raise",
-            "amount": null/number,
-            "confidence": 0.0-1.0,
-            "reasoning": "explanation"
-        }
-    Returns:
-        bool: Whether action was executed successfully
-    """
+    """Execute poker action"""
     try:
         action_type = action["action"].lower()
-        logger.info(f"Executing action: {action_type}")
+        logger.debug(f"Executing action: {action_type}")
         
-        # Try to locate buttons, but continue even if some are missing
-        setup_button_locations()
-        
+        # No need to setup buttons here since each execute function will do it
         if action_type == "fold":
             return execute_fold()
         elif action_type == "call":
@@ -434,13 +395,13 @@ def execute_action(action: Dict[str, Any]) -> bool:
 def execute_fold() -> bool:
     """Execute fold action"""
     try:
+        # Refresh button locations before clicking
+        setup_button_locations()
         if BUTTON_LOCATIONS["fold"]:
             pyautogui.click(BUTTON_LOCATIONS["fold"])
-            logger.info("Executed fold")
+            logger.debug("Executed fold")
             return True
-        else:
-            logger.warning("Fold button not found, skipping fold action")
-            return False
+        return False
     except Exception as e:
         logger.error(f"Error executing fold: {str(e)}")
         return False
@@ -448,13 +409,13 @@ def execute_fold() -> bool:
 def execute_call() -> bool:
     """Execute call action"""
     try:
+        # Refresh button locations before clicking
+        setup_button_locations()
         if BUTTON_LOCATIONS["call"]:
             pyautogui.click(BUTTON_LOCATIONS["call"])
-            logger.info("Executed call")
+            logger.debug("Executed call")
             return True
-        else:
-            logger.warning("Call button not found, skipping call action")
-            return False
+        return False
     except Exception as e:
         logger.error(f"Error executing call: {str(e)}")
         return False
@@ -462,30 +423,27 @@ def execute_call() -> bool:
 def execute_check() -> bool:
     """Execute check action"""
     try:
+        # Refresh button locations before clicking
+        setup_button_locations()
         if BUTTON_LOCATIONS["check"]:
             pyautogui.click(BUTTON_LOCATIONS["check"])
-            logger.info("Executed check")
+            logger.debug("Executed check")
             return True
-        else:
-            logger.warning("Check button not found, skipping check action")
-            return False
+        return False
     except Exception as e:
         logger.error(f"Error executing check: {str(e)}")
         return False
 
 def execute_raise(amount: float) -> bool:
-    """
-    Execute raise action
-    Args:
-        amount: Raise amount
-    """
+    """Execute raise action"""
     try:
+        # Refresh button locations before clicking
+        setup_button_locations()
         if not BUTTON_LOCATIONS["raise"]:
-            logger.warning("Raise button not found, skipping raise action")
             return False
         
         pyautogui.click(BUTTON_LOCATIONS["raise"])
-        logger.info(f"Executed raise")
+        logger.debug(f"Executed raise")
         return True
         
     except Exception as e:
@@ -499,12 +457,19 @@ def click_n_times(button: str, n: int):
         button: Button name
         n: Number of clicks
     """
+    # Refresh button locations before clicking
+    setup_button_locations()
     if not BUTTON_LOCATIONS[button]:
         return
     
     for _ in range(n):
-        pyautogui.click(BUTTON_LOCATIONS[button])
-        time.sleep(0.1)
+        # Refresh button locations before each click
+        setup_button_locations()
+        if BUTTON_LOCATIONS[button]:
+            pyautogui.click(BUTTON_LOCATIONS[button])
+            time.sleep(0.1)
+        else:
+            break  # Stop if button disappears
 
 def adjust_raise_amount(target_amount: float) -> bool:
     """
@@ -515,6 +480,9 @@ def adjust_raise_amount(target_amount: float) -> bool:
         bool: Whether adjustment was successful
     """
     try:
+        # Refresh button locations before any operations
+        setup_button_locations()
+        
         # 1. Check if all necessary buttons are present
         required_buttons = ["min", "max", "plus", "minus", "pot", "fifty_percent"]
         if not all(BUTTON_LOCATIONS[btn] for btn in required_buttons):
@@ -541,6 +509,9 @@ def adjust_raise_amount(target_amount: float) -> bool:
         # Start from minimum value as baseline
         pyautogui.click(BUTTON_LOCATIONS["min"])
         time.sleep(0.5)
+        
+        # Refresh button locations again before fine adjustments
+        setup_button_locations()
         
         current = get_current_amount()
         if current is None:
