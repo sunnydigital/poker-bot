@@ -33,10 +33,10 @@ MUTUALLY_EXCLUSIVE_BUTTONS = [
 
 # Keep only essential button confidence thresholds
 BUTTON_CONFIDENCE = {
-    "fold": 0.7,
-    "call": 0.7,
-    "check": 0.7,
-    "raise": 0.7,
+    "fold": 0.6,
+    "call": 0.6,
+    "check": 0.6,
+    "raise": 0.6,
 }
 
 # Define expected colors for each button in HSV ranges
@@ -46,28 +46,28 @@ BUTTON_COLORS = {
             ((0, 100, 100), (10, 255, 255)),    # Red range 1
             ((160, 100, 100), (180, 255, 255))  # Red range 2
         ],
-        "min_ratio": 0.3
+        "min_ratio": 0.2
     },
     "call": {
         "ranges": [
             ((0, 100, 100), (10, 255, 255)),    # Red range 1
             ((160, 100, 100), (180, 255, 255))  # Red range 2
         ],
-        "min_ratio": 0.3
+        "min_ratio": 0.2
     },
     "check": {
         "ranges": [
             ((0, 100, 100), (10, 255, 255)),    # Red range 1
             ((160, 100, 100), (180, 255, 255))  # Red range 2
         ],
-        "min_ratio": 0.3
+        "min_ratio": 0.2
     },
     "raise": {
         "ranges": [
             ((0, 100, 100), (10, 255, 255)),    # Red range 1
             ((160, 100, 100), (180, 255, 255))  # Red range 2
         ],
-        "min_ratio": 0.3
+        "min_ratio": 0.2
     }
 }
 
@@ -315,6 +315,8 @@ def locate_button(button_name: str, confidence: float = 0.6, detected_buttons: D
 def setup_button_locations(confidence: float = 0.6) -> bool:
     """
     Set up all button locations with mutual exclusion checks
+    Returns:
+        bool: True if any button is found, False if no buttons are found
     """
     detected = {}
     
@@ -325,6 +327,9 @@ def setup_button_locations(confidence: float = 0.6) -> bool:
         if location:
             detected[button_name] = location
             BUTTON_LOCATIONS[button_name] = location
+        else:
+            logger.debug(f"Button {button_name} not found during setup")
+            BUTTON_LOCATIONS[button_name] = None
     
     # If we found call, don't look for check
     if not BUTTON_LOCATIONS.get("call"):
@@ -332,24 +337,18 @@ def setup_button_locations(confidence: float = 0.6) -> bool:
         if location:
             detected["check"] = location
             BUTTON_LOCATIONS["check"] = location
+        else:
+            logger.debug("Check button not found during setup")
+            BUTTON_LOCATIONS["check"] = None
     
-    # Check if we have the minimum required buttons
-    has_call_or_check = bool(BUTTON_LOCATIONS.get("call") or BUTTON_LOCATIONS.get("check"))
-    has_fold = bool(BUTTON_LOCATIONS.get("fold"))
-    has_raise = bool(BUTTON_LOCATIONS.get("raise"))
-    
-    if not (has_call_or_check and has_fold and has_raise):
-        missing = []
-        if not has_fold:
-            missing.append("fold")
-        if not has_raise:
-            missing.append("raise")
-        if not has_call_or_check:
-            missing.append("call/check")
-        logger.error(f"Missing required buttons: {missing}")
+    # Check if any buttons were found
+    found_buttons = [name for name, loc in BUTTON_LOCATIONS.items() if loc is not None]
+    if found_buttons:
+        logger.info(f"Found buttons: {found_buttons}")
+        return True
+    else:
+        logger.debug("No buttons found")
         return False
-        
-    return True
 
 def get_current_amount() -> Optional[float]:
     """
@@ -413,10 +412,8 @@ def execute_action(action: Dict[str, Any]) -> bool:
         action_type = action["action"].lower()
         logger.info(f"Executing action: {action_type}")
         
-        # Relocate buttons before each action
-        if not setup_button_locations():
-            logger.error("Unable to locate required buttons")
-            return False
+        # Try to locate buttons, but continue even if some are missing
+        setup_button_locations()
         
         if action_type == "fold":
             return execute_fold()
@@ -442,7 +439,7 @@ def execute_fold() -> bool:
             logger.info("Executed fold")
             return True
         else:
-            logger.error("Fold button not found")
+            logger.warning("Fold button not found, skipping fold action")
             return False
     except Exception as e:
         logger.error(f"Error executing fold: {str(e)}")
@@ -456,7 +453,7 @@ def execute_call() -> bool:
             logger.info("Executed call")
             return True
         else:
-            logger.error("Call button not found")
+            logger.warning("Call button not found, skipping call action")
             return False
     except Exception as e:
         logger.error(f"Error executing call: {str(e)}")
@@ -470,7 +467,7 @@ def execute_check() -> bool:
             logger.info("Executed check")
             return True
         else:
-            logger.error("Check button not found")
+            logger.warning("Check button not found, skipping check action")
             return False
     except Exception as e:
         logger.error(f"Error executing check: {str(e)}")
@@ -483,9 +480,8 @@ def execute_raise(amount: float) -> bool:
         amount: Raise amount
     """
     try:
-        # Click raise button
         if not BUTTON_LOCATIONS["raise"]:
-            logger.error("Raise button not found")
+            logger.warning("Raise button not found, skipping raise action")
             return False
         
         pyautogui.click(BUTTON_LOCATIONS["raise"])

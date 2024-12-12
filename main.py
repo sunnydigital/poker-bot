@@ -28,16 +28,22 @@ def main():
     print("Program started, press Ctrl+C to exit")
     try:
         while True:
-            # 1. Capture screen
+            # 1. Check for available buttons first
+            if not setup_button_locations():
+                print("Waiting for action buttons...")
+                time.sleep(1)  # Short delay before next check
+                continue
+            
+            # 2. Capture screen only when buttons are found
             screen = capture_screen()
             
-            # 2. Update game state using LLM
+            # 3. Update game state using LLM
             game_state.update_from_screen(screen)
             
-            # 3. Get AI decision
+            # 4. Get AI decision
             action = poker_agent.get_action(game_state)
             
-            # 4. Execute action
+            # 5. Execute action
             if not execute_action(action):
                 print("Action execution failed, please check if buttons are visible")
                 if input("Retry? (y/n): ").lower() == 'y':
@@ -45,7 +51,7 @@ def main():
                 else:
                     break
             
-            # 5. Wait before next operation
+            # 6. Wait before next operation
             time.sleep(2)  # Adjust delay as needed
             
     except KeyboardInterrupt:
