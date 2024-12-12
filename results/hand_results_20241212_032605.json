@@ -1,0 +1,5143 @@
+[
+  {
+    "hand_num": 0,
+    "winner": "LLM",
+    "pot": 50,
+    "community_cards": [
+      "Q-S",
+      "A-D",
+      "A-S",
+      "6-S"
+    ],
+    "player_hands": [
+      [
+        "3-S",
+        "8-D"
+      ],
+      [
+        "10-D",
+        "5-S"
+      ],
+      [
+        "9-H",
+        "J-D"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      960,
+      1050
+    ],
+    "stages_reached": [
+      "flop",
+      "turn"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "flop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "flop",
+        "check"
+      ],
+      [
+        "Random",
+        "turn",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 1,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "10-H",
+        "3-S"
+      ],
+      [
+        "Q-S",
+        "J-D"
+      ],
+      [
+        "6-H",
+        "9-S"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 2,
+    "winner": "Random",
+    "pot": 70,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "6-C",
+        "7-S"
+      ],
+      [
+        "6-H",
+        "10-S"
+      ],
+      [
+        "K-S",
+        "3-S"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      1010,
+      1000
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 3,
+    "winner": "LLM",
+    "pot": 50,
+    "community_cards": [
+      "Q-H",
+      "3-H",
+      "J-C"
+    ],
+    "player_hands": [
+      [
+        "4-C",
+        "7-D"
+      ],
+      [
+        "K-C",
+        "J-D"
+      ],
+      [
+        "6-D",
+        "7-C"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      960,
+      1050
+    ],
+    "stages_reached": [
+      "flop"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "flop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 4,
+    "winner": "LLM",
+    "pot": 50,
+    "community_cards": [
+      "8-S",
+      "10-H",
+      "K-D"
+    ],
+    "player_hands": [
+      [
+        "Q-H",
+        "6-D"
+      ],
+      [
+        "5-D",
+        "3-S"
+      ],
+      [
+        "K-H",
+        "J-C"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      960,
+      1050
+    ],
+    "stages_reached": [
+      "flop"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "flop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 5,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "7-S",
+        "9-H"
+      ],
+      [
+        "8-S",
+        "A-C"
+      ],
+      [
+        "6-C",
+        "K-D"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 6,
+    "winner": "LLM",
+    "pot": 50,
+    "community_cards": [
+      "9-C",
+      "3-D",
+      "2-C",
+      "4-C",
+      "2-H"
+    ],
+    "player_hands": [
+      [
+        "2-S",
+        "J-S"
+      ],
+      [
+        "Q-D",
+        "2-D"
+      ],
+      [
+        "3-H",
+        "5-S"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      960,
+      1050
+    ],
+    "stages_reached": [
+      "flop",
+      "turn",
+      "river"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "flop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "flop",
+        "check"
+      ],
+      [
+        "Random",
+        "turn",
+        "call"
+      ],
+      [
+        "LLM",
+        "turn",
+        "check"
+      ],
+      [
+        "Random",
+        "river",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 7,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "A-C",
+        "J-H"
+      ],
+      [
+        "5-C",
+        "J-C"
+      ],
+      [
+        "4-D",
+        "5-S"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 8,
+    "winner": "Random",
+    "pot": 70,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "6-H",
+        "9-C"
+      ],
+      [
+        "7-C",
+        "8-C"
+      ],
+      [
+        "7-S",
+        "J-S"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      1010,
+      1000
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 9,
+    "winner": "Random",
+    "pot": 70,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "8-S",
+        "2-S"
+      ],
+      [
+        "8-D",
+        "8-H"
+      ],
+      [
+        "6-H",
+        "4-C"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      1010,
+      1000
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 10,
+    "winner": "Random",
+    "pot": 70,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "3-C",
+        "5-C"
+      ],
+      [
+        "7-H",
+        "9-S"
+      ],
+      [
+        "4-D",
+        "8-H"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      1010,
+      1000
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 11,
+    "winner": "Random",
+    "pot": 70,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "10-S",
+        "Q-D"
+      ],
+      [
+        "9-S",
+        "Q-S"
+      ],
+      [
+        "5-C",
+        "K-D"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      1010,
+      1000
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 12,
+    "winner": "GTO",
+    "pot": 170,
+    "community_cards": [
+      "4-H",
+      "2-S",
+      "2-H",
+      "5-D",
+      "3-H"
+    ],
+    "player_hands": [
+      [
+        "A-S",
+        "4-S"
+      ],
+      [
+        "3-C",
+        "Q-C"
+      ],
+      [
+        "9-C",
+        "J-H"
+      ]
+    ],
+    "final_stacks": [
+      1140,
+      940,
+      920
+    ],
+    "stages_reached": [
+      "flop",
+      "turn",
+      "river"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "preflop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "preflop",
+        "raise"
+      ],
+      [
+        "GTO",
+        "preflop",
+        "call"
+      ],
+      [
+        "GTO",
+        "flop",
+        "check"
+      ],
+      [
+        "Random",
+        "flop",
+        "fold"
+      ],
+      [
+        "LLM",
+        "flop",
+        "check"
+      ],
+      [
+        "GTO",
+        "turn",
+        "check"
+      ],
+      [
+        "LLM",
+        "turn",
+        "check"
+      ],
+      [
+        "GTO",
+        "river",
+        "check"
+      ],
+      [
+        "LLM",
+        "river",
+        "check"
+      ]
+    ]
+  },
+  {
+    "hand_num": 13,
+    "winner": "LLM",
+    "pot": 150,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "J-S",
+        "6-D"
+      ],
+      [
+        "K-S",
+        "9-S"
+      ],
+      [
+        "A-C",
+        "6-C"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      940,
+      1070
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "preflop",
+        "raise"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 14,
+    "winner": "GTO",
+    "pot": 70,
+    "community_cards": [
+      "4-C",
+      "K-C",
+      "A-S",
+      "4-H",
+      "3-D"
+    ],
+    "player_hands": [
+      [
+        "3-C",
+        "A-C"
+      ],
+      [
+        "4-D",
+        "7-C"
+      ],
+      [
+        "8-D",
+        "7-D"
+      ]
+    ],
+    "final_stacks": [
+      1040,
+      980,
+      980
+    ],
+    "stages_reached": [
+      "flop",
+      "turn",
+      "river"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ],
+      [
+        "LLM",
+        "preflop",
+        "call"
+      ],
+      [
+        "GTO",
+        "flop",
+        "check"
+      ],
+      [
+        "LLM",
+        "flop",
+        "check"
+      ],
+      [
+        "GTO",
+        "turn",
+        "check"
+      ],
+      [
+        "LLM",
+        "turn",
+        "check"
+      ],
+      [
+        "GTO",
+        "river",
+        "check"
+      ],
+      [
+        "LLM",
+        "river",
+        "check"
+      ]
+    ]
+  },
+  {
+    "hand_num": 15,
+    "winner": "LLM",
+    "pot": 50,
+    "community_cards": [
+      "Q-C",
+      "5-C",
+      "3-C",
+      "9-C",
+      "6-H"
+    ],
+    "player_hands": [
+      [
+        "Q-D",
+        "6-S"
+      ],
+      [
+        "8-H",
+        "5-D"
+      ],
+      [
+        "2-S",
+        "7-C"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      960,
+      1050
+    ],
+    "stages_reached": [
+      "flop",
+      "turn",
+      "river"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "flop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "flop",
+        "check"
+      ],
+      [
+        "Random",
+        "turn",
+        "call"
+      ],
+      [
+        "LLM",
+        "turn",
+        "check"
+      ],
+      [
+        "Random",
+        "river",
+        "raise"
+      ],
+      [
+        "LLM",
+        "river",
+        "check"
+      ]
+    ]
+  },
+  {
+    "hand_num": 16,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "A-D",
+        "J-S"
+      ],
+      [
+        "9-S",
+        "2-C"
+      ],
+      [
+        "K-C",
+        "7-H"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 17,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "K-C",
+        "8-C"
+      ],
+      [
+        "A-H",
+        "6-D"
+      ],
+      [
+        "3-H",
+        "4-S"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 18,
+    "winner": "Random",
+    "pot": 70,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "8-H",
+        "K-C"
+      ],
+      [
+        "3-C",
+        "8-D"
+      ],
+      [
+        "2-C",
+        "5-D"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      1010,
+      1000
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 19,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "4-S",
+        "J-H"
+      ],
+      [
+        "K-H",
+        "2-C"
+      ],
+      [
+        "8-S",
+        "K-S"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 20,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "10-S",
+        "2-C"
+      ],
+      [
+        "3-S",
+        "4-S"
+      ],
+      [
+        "6-S",
+        "4-H"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 21,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "Q-H",
+        "7-D"
+      ],
+      [
+        "A-C",
+        "2-C"
+      ],
+      [
+        "4-C",
+        "A-S"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 22,
+    "winner": "Random",
+    "pot": 50,
+    "community_cards": [
+      "10-D",
+      "4-D",
+      "6-C",
+      "8-D",
+      "9-D"
+    ],
+    "player_hands": [
+      [
+        "4-H",
+        "J-S"
+      ],
+      [
+        "9-C",
+        "9-S"
+      ],
+      [
+        "3-H",
+        "4-S"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      1010,
+      1000
+    ],
+    "stages_reached": [
+      "flop",
+      "turn",
+      "river"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "flop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "flop",
+        "check"
+      ],
+      [
+        "Random",
+        "turn",
+        "raise"
+      ],
+      [
+        "LLM",
+        "turn",
+        "check"
+      ],
+      [
+        "Random",
+        "river",
+        "call"
+      ],
+      [
+        "LLM",
+        "river",
+        "check"
+      ]
+    ]
+  },
+  {
+    "hand_num": 23,
+    "winner": "LLM",
+    "pot": 50,
+    "community_cards": [
+      "8-D",
+      "6-D",
+      "5-C"
+    ],
+    "player_hands": [
+      [
+        "2-S",
+        "4-D"
+      ],
+      [
+        "3-C",
+        "8-H"
+      ],
+      [
+        "7-D",
+        "A-H"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      960,
+      1050
+    ],
+    "stages_reached": [
+      "flop"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "flop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 24,
+    "winner": "Random",
+    "pot": 70,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "9-D",
+        "5-S"
+      ],
+      [
+        "7-D",
+        "J-C"
+      ],
+      [
+        "6-C",
+        "J-D"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      1010,
+      1000
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 25,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "4-S",
+        "Q-D"
+      ],
+      [
+        "A-H",
+        "9-H"
+      ],
+      [
+        "J-S",
+        "J-C"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 26,
+    "winner": "Random",
+    "pot": 50,
+    "community_cards": [
+      "A-C",
+      "A-S",
+      "5-S",
+      "7-S",
+      "3-C"
+    ],
+    "player_hands": [
+      [
+        "7-D",
+        "9-H"
+      ],
+      [
+        "6-D",
+        "7-H"
+      ],
+      [
+        "10-S",
+        "J-H"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      1010,
+      1000
+    ],
+    "stages_reached": [
+      "flop",
+      "turn",
+      "river"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "flop",
+        "call"
+      ],
+      [
+        "LLM",
+        "flop",
+        "check"
+      ],
+      [
+        "Random",
+        "turn",
+        "call"
+      ],
+      [
+        "LLM",
+        "turn",
+        "check"
+      ],
+      [
+        "Random",
+        "river",
+        "raise"
+      ],
+      [
+        "LLM",
+        "river",
+        "check"
+      ]
+    ]
+  },
+  {
+    "hand_num": 27,
+    "winner": "LLM",
+    "pot": 90,
+    "community_cards": [
+      "5-S",
+      "Q-D",
+      "K-H",
+      "3-S",
+      "4-D"
+    ],
+    "player_hands": [
+      [
+        "A-S",
+        "4-S"
+      ],
+      [
+        "2-D",
+        "Q-C"
+      ],
+      [
+        "Q-S",
+        "7-D"
+      ]
+    ],
+    "final_stacks": [
+      970,
+      960,
+      1070
+    ],
+    "stages_reached": [
+      "flop",
+      "turn",
+      "river"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "LLM",
+        "preflop",
+        "call"
+      ],
+      [
+        "GTO",
+        "flop",
+        "check"
+      ],
+      [
+        "Random",
+        "flop",
+        "call"
+      ],
+      [
+        "LLM",
+        "flop",
+        "check"
+      ],
+      [
+        "GTO",
+        "turn",
+        "check"
+      ],
+      [
+        "Random",
+        "turn",
+        "raise"
+      ],
+      [
+        "LLM",
+        "turn",
+        "check"
+      ],
+      [
+        "GTO",
+        "river",
+        "check"
+      ],
+      [
+        "Random",
+        "river",
+        "fold"
+      ],
+      [
+        "LLM",
+        "river",
+        "check"
+      ]
+    ]
+  },
+  {
+    "hand_num": 28,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "3-C",
+        "4-C"
+      ],
+      [
+        "6-S",
+        "K-C"
+      ],
+      [
+        "K-D",
+        "2-H"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 29,
+    "winner": "Random",
+    "pot": 50,
+    "community_cards": [
+      "2-D",
+      "K-C",
+      "3-S",
+      "4-C",
+      "3-C"
+    ],
+    "player_hands": [
+      [
+        "9-S",
+        "7-H"
+      ],
+      [
+        "6-C",
+        "2-H"
+      ],
+      [
+        "9-D",
+        "5-D"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      1010,
+      1000
+    ],
+    "stages_reached": [
+      "flop",
+      "turn",
+      "river"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "flop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "flop",
+        "check"
+      ],
+      [
+        "Random",
+        "turn",
+        "raise"
+      ],
+      [
+        "LLM",
+        "turn",
+        "check"
+      ],
+      [
+        "Random",
+        "river",
+        "raise"
+      ],
+      [
+        "LLM",
+        "river",
+        "check"
+      ]
+    ]
+  },
+  {
+    "hand_num": 30,
+    "winner": "LLM",
+    "pot": 150,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "5-C",
+        "10-C"
+      ],
+      [
+        "J-D",
+        "Q-C"
+      ],
+      [
+        "K-H",
+        "Q-H"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      940,
+      1070
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "preflop",
+        "raise"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 31,
+    "winner": "Random",
+    "pot": 70,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "6-S",
+        "J-C"
+      ],
+      [
+        "Q-C",
+        "K-H"
+      ],
+      [
+        "4-S",
+        "9-C"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      1010,
+      1000
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 32,
+    "winner": "LLM",
+    "pot": 50,
+    "community_cards": [
+      "10-C",
+      "8-S",
+      "8-H"
+    ],
+    "player_hands": [
+      [
+        "K-H",
+        "2-H"
+      ],
+      [
+        "9-C",
+        "6-S"
+      ],
+      [
+        "10-H",
+        "5-C"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      960,
+      1050
+    ],
+    "stages_reached": [
+      "flop"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "flop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 33,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "J-H",
+        "3-S"
+      ],
+      [
+        "10-D",
+        "A-S"
+      ],
+      [
+        "3-H",
+        "8-H"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 34,
+    "winner": "Random",
+    "pot": 50,
+    "community_cards": [
+      "J-D",
+      "3-H",
+      "4-D",
+      "A-S",
+      "4-C"
+    ],
+    "player_hands": [
+      [
+        "5-C",
+        "6-S"
+      ],
+      [
+        "2-C",
+        "2-D"
+      ],
+      [
+        "7-C",
+        "10-S"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      1010,
+      1000
+    ],
+    "stages_reached": [
+      "flop",
+      "turn",
+      "river"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "flop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "flop",
+        "check"
+      ],
+      [
+        "Random",
+        "turn",
+        "call"
+      ],
+      [
+        "LLM",
+        "turn",
+        "check"
+      ],
+      [
+        "Random",
+        "river",
+        "call"
+      ],
+      [
+        "LLM",
+        "river",
+        "check"
+      ]
+    ]
+  },
+  {
+    "hand_num": 35,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "5-H",
+        "K-S"
+      ],
+      [
+        "K-H",
+        "A-H"
+      ],
+      [
+        "3-S",
+        "5-S"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 36,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "K-S",
+        "10-D"
+      ],
+      [
+        "9-C",
+        "4-H"
+      ],
+      [
+        "A-C",
+        "10-C"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 37,
+    "winner": "LLM",
+    "pot": 50,
+    "community_cards": [
+      "3-S",
+      "6-S",
+      "9-S",
+      "K-H",
+      "5-S"
+    ],
+    "player_hands": [
+      [
+        "2-H",
+        "8-C"
+      ],
+      [
+        "4-H",
+        "7-D"
+      ],
+      [
+        "2-C",
+        "4-S"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      960,
+      1050
+    ],
+    "stages_reached": [
+      "flop",
+      "turn",
+      "river"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "flop",
+        "call"
+      ],
+      [
+        "LLM",
+        "flop",
+        "check"
+      ],
+      [
+        "Random",
+        "turn",
+        "raise"
+      ],
+      [
+        "LLM",
+        "turn",
+        "check"
+      ],
+      [
+        "Random",
+        "river",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 38,
+    "winner": "Random",
+    "pot": 70,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "K-C",
+        "10-S"
+      ],
+      [
+        "7-C",
+        "2-C"
+      ],
+      [
+        "J-H",
+        "9-C"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      1010,
+      1000
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 39,
+    "winner": "LLM",
+    "pot": 150,
+    "community_cards": [
+      "8-S",
+      "J-S",
+      "3-C"
+    ],
+    "player_hands": [
+      [
+        "8-D",
+        "7-C"
+      ],
+      [
+        "8-C",
+        "3-H"
+      ],
+      [
+        "9-D",
+        "9-S"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      940,
+      1070
+    ],
+    "stages_reached": [
+      "flop"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "preflop",
+        "raise"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "flop",
+        "call"
+      ],
+      [
+        "LLM",
+        "flop",
+        "raise"
+      ],
+      [
+        "Random",
+        "flop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 40,
+    "winner": "LLM",
+    "pot": 50,
+    "community_cards": [
+      "Q-S",
+      "2-S",
+      "4-D"
+    ],
+    "player_hands": [
+      [
+        "5-H",
+        "J-D"
+      ],
+      [
+        "7-C",
+        "J-C"
+      ],
+      [
+        "3-C",
+        "A-H"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      960,
+      1050
+    ],
+    "stages_reached": [
+      "flop"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "flop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 41,
+    "winner": "LLM",
+    "pot": 50,
+    "community_cards": [
+      "5-H",
+      "9-C",
+      "2-S"
+    ],
+    "player_hands": [
+      [
+        "2-C",
+        "J-C"
+      ],
+      [
+        "10-H",
+        "Q-H"
+      ],
+      [
+        "A-D",
+        "5-C"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      960,
+      1050
+    ],
+    "stages_reached": [
+      "flop"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "flop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 42,
+    "winner": "Random",
+    "pot": 310,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "A-S",
+        "7-C"
+      ],
+      [
+        "3-H",
+        "4-C"
+      ],
+      [
+        "4-D",
+        "A-C"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      1090,
+      920
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "preflop",
+        "raise"
+      ],
+      [
+        "Random",
+        "preflop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 43,
+    "winner": "Random",
+    "pot": 50,
+    "community_cards": [
+      "2-C",
+      "3-H",
+      "K-H",
+      "8-S",
+      "5-H"
+    ],
+    "player_hands": [
+      [
+        "6-C",
+        "K-C"
+      ],
+      [
+        "J-S",
+        "K-S"
+      ],
+      [
+        "A-S",
+        "9-D"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      1010,
+      1000
+    ],
+    "stages_reached": [
+      "flop",
+      "turn",
+      "river"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "flop",
+        "call"
+      ],
+      [
+        "LLM",
+        "flop",
+        "check"
+      ],
+      [
+        "Random",
+        "turn",
+        "call"
+      ],
+      [
+        "LLM",
+        "turn",
+        "check"
+      ],
+      [
+        "Random",
+        "river",
+        "raise"
+      ],
+      [
+        "LLM",
+        "river",
+        "check"
+      ]
+    ]
+  },
+  {
+    "hand_num": 44,
+    "winner": "Random",
+    "pot": 50,
+    "community_cards": [
+      "7-H",
+      "7-D",
+      "7-C",
+      "6-S",
+      "2-D"
+    ],
+    "player_hands": [
+      [
+        "10-C",
+        "5-C"
+      ],
+      [
+        "6-H",
+        "Q-D"
+      ],
+      [
+        "3-C",
+        "K-D"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      1010,
+      1000
+    ],
+    "stages_reached": [
+      "flop",
+      "turn",
+      "river"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "flop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "flop",
+        "check"
+      ],
+      [
+        "Random",
+        "turn",
+        "raise"
+      ],
+      [
+        "LLM",
+        "turn",
+        "check"
+      ],
+      [
+        "Random",
+        "river",
+        "raise"
+      ],
+      [
+        "LLM",
+        "river",
+        "check"
+      ]
+    ]
+  },
+  {
+    "hand_num": 45,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "9-C",
+        "J-D"
+      ],
+      [
+        "9-D",
+        "6-D"
+      ],
+      [
+        "J-H",
+        "5-S"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 46,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "5-H",
+        "6-H"
+      ],
+      [
+        "2-S",
+        "A-S"
+      ],
+      [
+        "A-C",
+        "A-D"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 47,
+    "winner": "LLM",
+    "pot": 50,
+    "community_cards": [
+      "10-C",
+      "J-C",
+      "2-H"
+    ],
+    "player_hands": [
+      [
+        "J-H",
+        "J-S"
+      ],
+      [
+        "5-S",
+        "3-S"
+      ],
+      [
+        "9-S",
+        "3-H"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      960,
+      1050
+    ],
+    "stages_reached": [
+      "flop"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "flop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 48,
+    "winner": "LLM",
+    "pot": 50,
+    "community_cards": [
+      "K-C",
+      "J-S",
+      "2-H",
+      "7-H",
+      "K-H"
+    ],
+    "player_hands": [
+      [
+        "5-S",
+        "Q-D"
+      ],
+      [
+        "4-H",
+        "6-D"
+      ],
+      [
+        "3-S",
+        "5-D"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      960,
+      1050
+    ],
+    "stages_reached": [
+      "flop",
+      "turn",
+      "river"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "flop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "flop",
+        "check"
+      ],
+      [
+        "Random",
+        "turn",
+        "call"
+      ],
+      [
+        "LLM",
+        "turn",
+        "check"
+      ],
+      [
+        "Random",
+        "river",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 49,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "3-H",
+        "8-D"
+      ],
+      [
+        "K-H",
+        "A-S"
+      ],
+      [
+        "5-H",
+        "3-D"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 50,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "4-C",
+        "K-H"
+      ],
+      [
+        "7-C",
+        "5-H"
+      ],
+      [
+        "K-S",
+        "6-D"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 51,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "10-S",
+        "K-C"
+      ],
+      [
+        "4-S",
+        "8-D"
+      ],
+      [
+        "3-H",
+        "4-C"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 52,
+    "winner": "Random",
+    "pot": 70,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "10-D",
+        "5-D"
+      ],
+      [
+        "J-S",
+        "8-S"
+      ],
+      [
+        "7-D",
+        "4-S"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      1010,
+      1000
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 53,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "J-H",
+        "9-S"
+      ],
+      [
+        "K-D",
+        "A-C"
+      ],
+      [
+        "Q-C",
+        "A-D"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 54,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "A-C",
+        "2-D"
+      ],
+      [
+        "3-D",
+        "8-C"
+      ],
+      [
+        "4-H",
+        "J-D"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 55,
+    "winner": "Random",
+    "pot": 70,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "6-C",
+        "A-H"
+      ],
+      [
+        "A-S",
+        "7-D"
+      ],
+      [
+        "7-C",
+        "5-H"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      1010,
+      1000
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 56,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "4-D",
+        "9-H"
+      ],
+      [
+        "2-S",
+        "6-S"
+      ],
+      [
+        "Q-H",
+        "8-S"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 57,
+    "winner": "LLM",
+    "pot": 150,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "10-S",
+        "8-C"
+      ],
+      [
+        "J-H",
+        "9-D"
+      ],
+      [
+        "2-C",
+        "2-S"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      940,
+      1070
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "preflop",
+        "raise"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 58,
+    "winner": "LLM",
+    "pot": 50,
+    "community_cards": [
+      "7-C",
+      "8-D",
+      "6-H",
+      "A-C"
+    ],
+    "player_hands": [
+      [
+        "10-S",
+        "Q-H"
+      ],
+      [
+        "6-C",
+        "4-C"
+      ],
+      [
+        "2-D",
+        "A-D"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      960,
+      1050
+    ],
+    "stages_reached": [
+      "flop",
+      "turn"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "flop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "flop",
+        "check"
+      ],
+      [
+        "Random",
+        "turn",
+        "raise"
+      ],
+      [
+        "LLM",
+        "turn",
+        "raise"
+      ],
+      [
+        "Random",
+        "turn",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 59,
+    "winner": "GTO",
+    "pot": 90,
+    "community_cards": [
+      "7-S",
+      "4-H",
+      "10-C",
+      "6-C"
+    ],
+    "player_hands": [
+      [
+        "A-S",
+        "2-S"
+      ],
+      [
+        "K-D",
+        "6-H"
+      ],
+      [
+        "8-C",
+        "3-H"
+      ]
+    ],
+    "final_stacks": [
+      1060,
+      940,
+      1000
+    ],
+    "stages_reached": [
+      "flop",
+      "turn"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "preflop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "preflop",
+        "fold"
+      ],
+      [
+        "GTO",
+        "preflop",
+        "call"
+      ],
+      [
+        "GTO",
+        "flop",
+        "check"
+      ],
+      [
+        "Random",
+        "flop",
+        "raise"
+      ],
+      [
+        "GTO",
+        "flop",
+        "check"
+      ],
+      [
+        "GTO",
+        "turn",
+        "check"
+      ],
+      [
+        "Random",
+        "turn",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 60,
+    "winner": "LLM",
+    "pot": 50,
+    "community_cards": [
+      "8-S",
+      "10-H",
+      "2-D"
+    ],
+    "player_hands": [
+      [
+        "6-S",
+        "7-D"
+      ],
+      [
+        "5-C",
+        "J-C"
+      ],
+      [
+        "7-C",
+        "K-H"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      960,
+      1050
+    ],
+    "stages_reached": [
+      "flop"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "flop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 61,
+    "winner": "Random",
+    "pot": 50,
+    "community_cards": [
+      "A-H",
+      "A-D",
+      "6-S",
+      "8-C",
+      "3-C"
+    ],
+    "player_hands": [
+      [
+        "2-S",
+        "9-S"
+      ],
+      [
+        "3-S",
+        "9-D"
+      ],
+      [
+        "K-C",
+        "7-H"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      1010,
+      1000
+    ],
+    "stages_reached": [
+      "flop",
+      "turn",
+      "river"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "flop",
+        "call"
+      ],
+      [
+        "LLM",
+        "flop",
+        "check"
+      ],
+      [
+        "Random",
+        "turn",
+        "raise"
+      ],
+      [
+        "LLM",
+        "turn",
+        "check"
+      ],
+      [
+        "Random",
+        "river",
+        "raise"
+      ],
+      [
+        "LLM",
+        "river",
+        "check"
+      ]
+    ]
+  },
+  {
+    "hand_num": 62,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "6-D",
+        "4-S"
+      ],
+      [
+        "5-D",
+        "5-S"
+      ],
+      [
+        "8-C",
+        "7-S"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 63,
+    "winner": "Random",
+    "pot": 70,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "J-C",
+        "7-S"
+      ],
+      [
+        "3-C",
+        "8-H"
+      ],
+      [
+        "6-S",
+        "3-H"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      1010,
+      1000
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 64,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "4-C",
+        "10-H"
+      ],
+      [
+        "A-C",
+        "2-S"
+      ],
+      [
+        "K-S",
+        "5-S"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 65,
+    "winner": "Random",
+    "pot": 70,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "A-H",
+        "4-D"
+      ],
+      [
+        "5-S",
+        "2-H"
+      ],
+      [
+        "8-D",
+        "Q-S"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      1010,
+      1000
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 66,
+    "winner": "Random",
+    "pot": 90,
+    "community_cards": [
+      "9-S",
+      "8-D",
+      "Q-S",
+      "K-D",
+      "9-D"
+    ],
+    "player_hands": [
+      [
+        "A-S",
+        "2-S"
+      ],
+      [
+        "8-H",
+        "6-C"
+      ],
+      [
+        "5-S",
+        "6-H"
+      ]
+    ],
+    "final_stacks": [
+      970,
+      1050,
+      980
+    ],
+    "stages_reached": [
+      "flop",
+      "turn",
+      "river"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "LLM",
+        "preflop",
+        "call"
+      ],
+      [
+        "GTO",
+        "flop",
+        "check"
+      ],
+      [
+        "Random",
+        "flop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "flop",
+        "check"
+      ],
+      [
+        "GTO",
+        "turn",
+        "check"
+      ],
+      [
+        "Random",
+        "turn",
+        "raise"
+      ],
+      [
+        "LLM",
+        "turn",
+        "check"
+      ],
+      [
+        "GTO",
+        "river",
+        "check"
+      ],
+      [
+        "Random",
+        "river",
+        "raise"
+      ],
+      [
+        "LLM",
+        "river",
+        "check"
+      ]
+    ]
+  },
+  {
+    "hand_num": 67,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "2-D",
+        "4-D"
+      ],
+      [
+        "9-D",
+        "5-C"
+      ],
+      [
+        "10-D",
+        "10-C"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 68,
+    "winner": "Random",
+    "pot": 70,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "7-S",
+        "8-H"
+      ],
+      [
+        "10-C",
+        "K-H"
+      ],
+      [
+        "4-D",
+        "3-D"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      1010,
+      1000
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 69,
+    "winner": "Random",
+    "pot": 70,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "J-C",
+        "K-C"
+      ],
+      [
+        "10-S",
+        "4-C"
+      ],
+      [
+        "5-H",
+        "8-C"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      1010,
+      1000
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 70,
+    "winner": "LLM",
+    "pot": 50,
+    "community_cards": [
+      "6-S",
+      "7-D",
+      "9-C",
+      "9-S"
+    ],
+    "player_hands": [
+      [
+        "10-D",
+        "4-D"
+      ],
+      [
+        "9-H",
+        "J-S"
+      ],
+      [
+        "2-S",
+        "K-C"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      960,
+      1050
+    ],
+    "stages_reached": [
+      "flop",
+      "turn"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "flop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "flop",
+        "check"
+      ],
+      [
+        "Random",
+        "turn",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 71,
+    "winner": "LLM",
+    "pot": 50,
+    "community_cards": [
+      "A-H",
+      "4-D",
+      "2-S",
+      "6-H",
+      "10-H"
+    ],
+    "player_hands": [
+      [
+        "7-D",
+        "5-D"
+      ],
+      [
+        "J-D",
+        "3-C"
+      ],
+      [
+        "10-D",
+        "9-H"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      960,
+      1050
+    ],
+    "stages_reached": [
+      "flop",
+      "turn",
+      "river"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "flop",
+        "call"
+      ],
+      [
+        "LLM",
+        "flop",
+        "check"
+      ],
+      [
+        "Random",
+        "turn",
+        "call"
+      ],
+      [
+        "LLM",
+        "turn",
+        "check"
+      ],
+      [
+        "Random",
+        "river",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 72,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "8-D",
+        "2-D"
+      ],
+      [
+        "6-D",
+        "9-C"
+      ],
+      [
+        "4-C",
+        "7-D"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 73,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "9-H",
+        "9-S"
+      ],
+      [
+        "3-S",
+        "4-D"
+      ],
+      [
+        "3-C",
+        "J-C"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 74,
+    "winner": "LLM",
+    "pot": 150,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "5-D",
+        "6-S"
+      ],
+      [
+        "A-H",
+        "2-D"
+      ],
+      [
+        "A-C",
+        "6-C"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      940,
+      1070
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "preflop",
+        "raise"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 75,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "9-S",
+        "7-S"
+      ],
+      [
+        "Q-D",
+        "K-C"
+      ],
+      [
+        "3-H",
+        "2-C"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 76,
+    "winner": "LLM",
+    "pot": 50,
+    "community_cards": [
+      "K-C",
+      "5-H",
+      "Q-S",
+      "10-D",
+      "6-S"
+    ],
+    "player_hands": [
+      [
+        "3-S",
+        "Q-C"
+      ],
+      [
+        "A-H",
+        "6-C"
+      ],
+      [
+        "4-C",
+        "10-C"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      960,
+      1050
+    ],
+    "stages_reached": [
+      "flop",
+      "turn",
+      "river"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "flop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "flop",
+        "check"
+      ],
+      [
+        "Random",
+        "turn",
+        "raise"
+      ],
+      [
+        "LLM",
+        "turn",
+        "check"
+      ],
+      [
+        "Random",
+        "river",
+        "call"
+      ],
+      [
+        "LLM",
+        "river",
+        "check"
+      ]
+    ]
+  },
+  {
+    "hand_num": 77,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "7-S",
+        "4-H"
+      ],
+      [
+        "2-C",
+        "6-D"
+      ],
+      [
+        "K-D",
+        "A-C"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 78,
+    "winner": "Random",
+    "pot": 70,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "6-S",
+        "K-C"
+      ],
+      [
+        "9-S",
+        "Q-C"
+      ],
+      [
+        "6-H",
+        "4-C"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      1010,
+      1000
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 79,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "9-D",
+        "3-C"
+      ],
+      [
+        "4-C",
+        "3-D"
+      ],
+      [
+        "7-S",
+        "A-H"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 80,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "K-D",
+        "9-S"
+      ],
+      [
+        "3-S",
+        "4-H"
+      ],
+      [
+        "5-D",
+        "4-D"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 81,
+    "winner": "LLM",
+    "pot": 50,
+    "community_cards": [
+      "4-C",
+      "K-H",
+      "Q-S"
+    ],
+    "player_hands": [
+      [
+        "10-H",
+        "9-C"
+      ],
+      [
+        "2-H",
+        "8-D"
+      ],
+      [
+        "4-D",
+        "7-D"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      960,
+      1050
+    ],
+    "stages_reached": [
+      "flop"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "flop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 82,
+    "winner": "Random",
+    "pot": 70,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "6-S",
+        "9-D"
+      ],
+      [
+        "8-C",
+        "8-H"
+      ],
+      [
+        "2-S",
+        "Q-S"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      1010,
+      1000
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 83,
+    "winner": "Random",
+    "pot": 50,
+    "community_cards": [
+      "7-C",
+      "J-C",
+      "5-D",
+      "2-D",
+      "4-S"
+    ],
+    "player_hands": [
+      [
+        "3-S",
+        "9-H"
+      ],
+      [
+        "4-D",
+        "10-D"
+      ],
+      [
+        "3-C",
+        "10-H"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      1010,
+      1000
+    ],
+    "stages_reached": [
+      "flop",
+      "turn",
+      "river"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "flop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "flop",
+        "check"
+      ],
+      [
+        "Random",
+        "turn",
+        "raise"
+      ],
+      [
+        "LLM",
+        "turn",
+        "check"
+      ],
+      [
+        "Random",
+        "river",
+        "call"
+      ],
+      [
+        "LLM",
+        "river",
+        "check"
+      ]
+    ]
+  },
+  {
+    "hand_num": 84,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "8-C",
+        "Q-D"
+      ],
+      [
+        "2-H",
+        "5-C"
+      ],
+      [
+        "4-H",
+        "Q-S"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 85,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "Q-C",
+        "4-S"
+      ],
+      [
+        "7-D",
+        "10-S"
+      ],
+      [
+        "8-H",
+        "8-C"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 86,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "K-S",
+        "J-D"
+      ],
+      [
+        "3-C",
+        "7-H"
+      ],
+      [
+        "Q-S",
+        "10-S"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 87,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "10-C",
+        "7-H"
+      ],
+      [
+        "4-H",
+        "8-C"
+      ],
+      [
+        "7-S",
+        "10-D"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 88,
+    "winner": "Random",
+    "pot": 70,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "10-C",
+        "K-S"
+      ],
+      [
+        "2-H",
+        "4-C"
+      ],
+      [
+        "7-D",
+        "2-D"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      1010,
+      1000
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 89,
+    "winner": "LLM",
+    "pot": 50,
+    "community_cards": [
+      "8-S",
+      "A-S",
+      "2-S",
+      "6-C"
+    ],
+    "player_hands": [
+      [
+        "7-D",
+        "K-S"
+      ],
+      [
+        "10-D",
+        "10-C"
+      ],
+      [
+        "8-C",
+        "8-D"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      960,
+      1050
+    ],
+    "stages_reached": [
+      "flop",
+      "turn"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "flop",
+        "call"
+      ],
+      [
+        "LLM",
+        "flop",
+        "raise"
+      ],
+      [
+        "Random",
+        "flop",
+        "call"
+      ],
+      [
+        "Random",
+        "turn",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 90,
+    "winner": "LLM",
+    "pot": 50,
+    "community_cards": [
+      "Q-D",
+      "A-D",
+      "2-D",
+      "9-H",
+      "10-D"
+    ],
+    "player_hands": [
+      [
+        "4-H",
+        "3-C"
+      ],
+      [
+        "K-D",
+        "7-H"
+      ],
+      [
+        "4-C",
+        "K-H"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      960,
+      1050
+    ],
+    "stages_reached": [
+      "flop",
+      "turn",
+      "river"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "flop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "flop",
+        "check"
+      ],
+      [
+        "Random",
+        "turn",
+        "raise"
+      ],
+      [
+        "LLM",
+        "turn",
+        "check"
+      ],
+      [
+        "Random",
+        "river",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 91,
+    "winner": "LLM",
+    "pot": 50,
+    "community_cards": [
+      "2-D",
+      "A-S",
+      "5-H"
+    ],
+    "player_hands": [
+      [
+        "6-C",
+        "K-C"
+      ],
+      [
+        "3-H",
+        "J-D"
+      ],
+      [
+        "A-H",
+        "8-S"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      960,
+      1050
+    ],
+    "stages_reached": [
+      "flop"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "flop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 92,
+    "winner": "LLM",
+    "pot": 50,
+    "community_cards": [
+      "2-C",
+      "J-H",
+      "K-S"
+    ],
+    "player_hands": [
+      [
+        "8-S",
+        "10-S"
+      ],
+      [
+        "3-C",
+        "7-D"
+      ],
+      [
+        "10-D",
+        "5-D"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      960,
+      1050
+    ],
+    "stages_reached": [
+      "flop"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "flop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 93,
+    "winner": "Random",
+    "pot": 70,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "4-C",
+        "J-C"
+      ],
+      [
+        "8-C",
+        "6-H"
+      ],
+      [
+        "4-D",
+        "J-D"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      1010,
+      1000
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 94,
+    "winner": "Random",
+    "pot": 50,
+    "community_cards": [
+      "J-H",
+      "10-H",
+      "Q-D",
+      "9-H",
+      "4-S"
+    ],
+    "player_hands": [
+      [
+        "Q-C",
+        "4-C"
+      ],
+      [
+        "A-D",
+        "8-H"
+      ],
+      [
+        "3-H",
+        "9-D"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      1010,
+      1000
+    ],
+    "stages_reached": [
+      "flop",
+      "turn",
+      "river"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "flop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "flop",
+        "check"
+      ],
+      [
+        "Random",
+        "turn",
+        "raise"
+      ],
+      [
+        "LLM",
+        "turn",
+        "check"
+      ],
+      [
+        "Random",
+        "river",
+        "raise"
+      ],
+      [
+        "LLM",
+        "river",
+        "check"
+      ]
+    ]
+  },
+  {
+    "hand_num": 95,
+    "winner": "LLM",
+    "pot": 50,
+    "community_cards": [
+      "7-D",
+      "5-S",
+      "6-C"
+    ],
+    "player_hands": [
+      [
+        "8-H",
+        "6-S"
+      ],
+      [
+        "Q-C",
+        "2-H"
+      ],
+      [
+        "4-D",
+        "3-H"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      960,
+      1050
+    ],
+    "stages_reached": [
+      "flop"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "flop",
+        "call"
+      ],
+      [
+        "LLM",
+        "flop",
+        "raise"
+      ],
+      [
+        "Random",
+        "flop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 96,
+    "winner": "LLM",
+    "pot": 30,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "7-H",
+        "J-S"
+      ],
+      [
+        "3-H",
+        "10-C"
+      ],
+      [
+        "6-D",
+        "A-C"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      980,
+      1030
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 97,
+    "winner": "LLM",
+    "pot": 50,
+    "community_cards": [
+      "K-D",
+      "K-S",
+      "J-S",
+      "9-H"
+    ],
+    "player_hands": [
+      [
+        "3-D",
+        "10-H"
+      ],
+      [
+        "3-S",
+        "5-H"
+      ],
+      [
+        "10-C",
+        "7-C"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      960,
+      1050
+    ],
+    "stages_reached": [
+      "flop",
+      "turn"
+    ],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "call"
+      ],
+      [
+        "Random",
+        "flop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "flop",
+        "check"
+      ],
+      [
+        "Random",
+        "turn",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 98,
+    "winner": "Random",
+    "pot": 70,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "J-H",
+        "2-D"
+      ],
+      [
+        "9-H",
+        "3-H"
+      ],
+      [
+        "5-D",
+        "9-D"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      1010,
+      1000
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "preflop",
+        "fold"
+      ]
+    ]
+  },
+  {
+    "hand_num": 99,
+    "winner": "Random",
+    "pot": 70,
+    "community_cards": [],
+    "player_hands": [
+      [
+        "5-D",
+        "10-S"
+      ],
+      [
+        "4-H",
+        "5-C"
+      ],
+      [
+        "6-S",
+        "3-D"
+      ]
+    ],
+    "final_stacks": [
+      990,
+      1010,
+      1000
+    ],
+    "stages_reached": [],
+    "actions": [
+      [
+        "GTO",
+        "preflop",
+        "fold"
+      ],
+      [
+        "Random",
+        "preflop",
+        "raise"
+      ],
+      [
+        "LLM",
+        "preflop",
+        "fold"
+      ]
+    ]
+  }
+]
