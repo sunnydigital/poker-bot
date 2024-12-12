@@ -7,7 +7,12 @@ import logging
 from game_state import GameState
 from poker_agent import PokerAgent
 from utils.screen_capture import capture_screen
-from utils.action_executor import execute_action, setup_button_locations
+from utils.action_executor import (
+    execute_action, 
+    setup_button_locations, 
+    BUTTON_LOCATIONS,
+    clear_button_locations
+)
 
 # Configure logging
 log_dir = Path("logs")
@@ -63,9 +68,19 @@ def main():
     logger.info("Program started, press Ctrl+C to exit")
     try:
         while True:
-            # 1. Check for available buttons first
-            if not setup_button_locations():
+            # Clear any previous button locations at the start of each loop
+            clear_button_locations()
+            
+            # 1. Wait for any action button to appear
+            max_retries = 10
+            retries = 0
+            while not setup_button_locations() and retries < max_retries:
                 time.sleep(1)  # Short delay before next check
+                retries += 1
+                continue
+            
+            if retries >= max_retries:
+                logger.debug("No action buttons found after maximum retries, continuing to next iteration")
                 continue
             
             # 2. Capture screen only when buttons are found
@@ -91,19 +106,44 @@ def main():
             # 4. Get AI decision
             action = poker_agent.get_action(game_state)
             
-            # 5. Execute action
+            # Clear button locations before checking for specific button
+            clear_button_locations()
+            
+            # 5. Wait for the specific button needed for the action to appear
+            action_type = action["action"].lower()
+            retries = 0
+            while retries < max_retries:
+                setup_button_locations()
+                if action_type == "fold" and BUTTON_LOCATIONS["fold"]:
+                    break
+                elif action_type == "call" and BUTTON_LOCATIONS["call"]:
+                    break
+                elif action_type == "check" and BUTTON_LOCATIONS["check"]:
+                    break
+                elif action_type == "raise" and BUTTON_LOCATIONS["raise"]:
+                    break
+                time.sleep(1)
+                retries += 1
+                # Clear locations before next retry
+                clear_button_locations()
+            
+            if retries >= max_retries:
+                logger.warning(f"Required button {action_type} not found after maximum retries")
+                continue
+            
+            # 6. Execute action
             if not execute_action(action):
                 logger.error("Action execution failed")
-                if input("Retry? (y/n): ").lower() == 'y':
-                    continue
-                else:
-                    break
+                continue
             
             # Store action for result logging
             game_state.last_action = action["action"]
             game_state.last_action_amount = action.get("amount")
             
-            # 6. Wait before next operation
+            # Clear button locations at the end of the loop
+            clear_button_locations()
+            
+            # 7. Wait before next operation
             time.sleep(2)  # Adjust delay as needed
             
     except KeyboardInterrupt:
@@ -117,6 +157,8 @@ def main():
                 game_state.stack_change
             )
         logger.info("Program stopped by user")
+        # Clear button locations before exiting
+        clear_button_locations()
 
 if __name__ == "__main__":
     main()
