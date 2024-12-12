@@ -44,15 +44,30 @@ class PokerAgent:
         Returns:
             Dict: Dictionary containing action decision
         """
-        # Log current game state
+        # Get current available buttons
+        from utils.action_executor import BUTTON_LOCATIONS
+        available_buttons = [btn for btn, loc in BUTTON_LOCATIONS.items() if loc is not None]
+        
+        # If no buttons are available, return a wait action
+        if not available_buttons:
+            logger.warning("No buttons currently available")
+            return {
+                "action": "wait",
+                "amount": None,
+                "confidence": 0.0,
+                "reasoning": "No action buttons are currently available, waiting for buttons to appear"
+            }
+        
+        # Log current game state and available buttons
         logger.info("Current Game State:")
         logger.info(f"Community Cards: {game_state.community_cards}")
         logger.info(f"Hole Cards: {game_state.hole_cards}")
         logger.info(f"Pot Size: {game_state.pot_size}")
         logger.info(f"Previous Actions: {game_state.who_raised}")
+        logger.info(f"Available Buttons: {available_buttons}")
         
         # Build prompt
-        prompt = self._build_prompt(game_state)
+        prompt = self._build_prompt(game_state, available_buttons)
         logger.debug(f"Generated prompt:\n{prompt}")
         
         # Get LLM response
@@ -60,40 +75,54 @@ class PokerAgent:
         logger.info(f"Raw LLM response:\n{response}")
         
         # Parse LLM's decision
-        decision = self._parse_response(response)
+        decision = self._parse_response(response, available_buttons)
         logger.info(f"Parsed decision: {json.dumps(decision, indent=2)}")
         
         return decision
     
-    def _build_prompt(self, game_state) -> str:
+    def _build_prompt(self, game_state, available_buttons: list) -> str:
         """Build prompt for LLM"""
+        # Convert available buttons to a more readable format
+        action_options = []
+        if "fold" in available_buttons:
+            action_options.append("1. Fold - if the hand is weak and not worth playing")
+        if "check" in available_buttons:
+            action_options.append("2. Check - if you want to stay in the hand without betting")
+        if "call" in available_buttons:
+            action_options.append("3. Call - if the hand has potential and worth matching the current bet")
+        if "raise" in available_buttons:
+            action_options.append("4. Raise (specify amount) - if you have a strong hand or good bluffing opportunity")
+        
+        action_choices = "/".join([btn for btn in available_buttons])
+        
         prompt = f"""
-You are a professional poker player. Analyze the current game state and make a strategic decision.
+You are a professional poker player. Analyze the current game state and make a strategic decision based on the available actions.
 
 Current game state:
 - Community Cards: {game_state.community_cards}
 - Your Hole Cards: {game_state.hole_cards}
 - Current Pot Size: {game_state.pot_size}
 - Previous Actions: {game_state.who_raised}
+- Available Actions: {', '.join(available_buttons)}
 
 Based on this information:
 1. Analyze the strength of your hand
 2. Consider the pot odds and potential returns
 3. Take into account previous actions
+4. IMPORTANT: Only choose from the currently available actions listed above
 
-Choose your action from:
-1. Fold - if the hand is weak and not worth playing
-2. Call - if the hand has potential but not strong enough to raise
-3. Raise (specify amount) - if you have a strong hand or good bluffing opportunity
+Available actions:
+{chr(10).join(action_options)}
 
 Provide your response in JSON format:
 {{
-    "action": "fold/call/raise",
+    "action": "{action_choices}",
     "amount": null/number (only for raise),
     "confidence": 0.0-1.0,
     "reasoning": "Detailed explanation of your decision including hand strength analysis and strategic considerations"
 }}
 
+IMPORTANT: Your chosen action MUST be one of the available actions: {', '.join(available_buttons)}
 Make sure to provide a detailed reasoning for your decision.
 """
         return prompt
@@ -127,14 +156,24 @@ Make sure to provide a detailed reasoning for your decision.
                 "reasoning": f"Error occurred: {str(e)}, defaulting to fold"
             })
     
-    def _parse_response(self, response: str) -> Dict[str, Any]:
+    def _parse_response(self, response: str, available_buttons: list) -> Dict[str, Any]:
         """
-        Parse LLM's response
+        Parse LLM's response and validate against available buttons
         Args:
             response: Response string from LLM
+            available_buttons: List of currently available buttons
         Returns:
             Dict: Parsed action dictionary
         """
+        # If no buttons are available, return wait action
+        if not available_buttons:
+            return {
+                "action": "wait",
+                "amount": None,
+                "confidence": 0.0,
+                "reasoning": "No action buttons are currently available, waiting for buttons to appear"
+            }
+
         try:
             # Clean up the response string
             response = response.replace('\n', ' ').replace('\r', '')
@@ -152,24 +191,48 @@ Make sure to provide a detailed reasoning for your decision.
                 
                 logger.debug(f"Cleaned JSON string:\n{json_str}")
                 decision = json.loads(json_str)
+                
+                # Validate the action is available
+                if decision["action"] not in available_buttons:
+                    error_msg = f"LLM chose unavailable action: {decision['action']}"
+                    logger.error(error_msg)
+                    # Choose the most conservative available action
+                    if "check" in available_buttons:
+                        default_action = "check"
+                    elif "fold" in available_buttons:
+                        default_action = "fold"
+                    else:
+                        default_action = available_buttons[0]  # Safe now as we checked list is not empty
+                    
+                    return {
+                        "action": default_action,
+                        "amount": None,
+                        "confidence": 0.0,
+                        "reasoning": f"Original action {decision['action']} not available, defaulting to {default_action}"
+                    }
+                
                 logger.info(f"Successfully parsed decision: {json.dumps(decision, indent=2)}")
                 return decision
             else:
                 error_msg = "No valid JSON found in response"
                 logger.error(error_msg)
+                # Safe to use available_buttons[0] as we checked list is not empty
+                default_action = "fold" if "fold" in available_buttons else available_buttons[0]
                 return {
-                    "action": "fold",
+                    "action": default_action,
                     "amount": None,
                     "confidence": 0.0,
-                    "reasoning": "Failed to find valid JSON in response, defaulting to fold"
+                    "reasoning": f"Failed to find valid JSON in response, defaulting to {default_action}"
                 }
         except json.JSONDecodeError as e:
             error_msg = f"Failed to parse response: {str(e)}"
             logger.error(error_msg)
             logger.error(f"Problematic response:\n{response}")
+            # Safe to use available_buttons[0] as we checked list is not empty
+            default_action = "fold" if "fold" in available_buttons else available_buttons[0]
             return {
-                "action": "fold",
+                "action": default_action,
                 "amount": None,
                 "confidence": 0.0,
-                "reasoning": "Failed to parse response, defaulting to fold"
+                "reasoning": f"Failed to parse response, defaulting to {default_action}"
             }
