@@ -18,77 +18,112 @@ logger = logging.getLogger(__name__)
 pyautogui.FAILSAFE = True
 pyautogui.PAUSE = 0.5
 
-# Button mapping configuration
+# Simplify button mapping to only essential buttons
 BUTTON_MAPPING = {
     "fold": "fold_button.png",
     "call": "call_button.png",
     "check": "check_button.png",
     "raise": "raise_to_button.png",
-    "min": "min_button.png",
-    "max": "max_button.png",
-    "plus": "plus_button.png",
-    "minus": "minus_button.png",
-    "pot": "pot_button.png",
-    "fifty_percent": "fifty_percent_button.png"
 }
 
-# Button groups that are mutually exclusive (cannot appear at the same time)
+# Simplify mutually exclusive buttons
 MUTUALLY_EXCLUSIVE_BUTTONS = [
     {"call", "check"},  # Either call or check, not both
-    {"min", "max"},     # Min and max buttons should be far apart
 ]
 
-# Button-specific confidence thresholds
+# Keep only essential button confidence thresholds
 BUTTON_CONFIDENCE = {
-    "fold": 0.6,
-    "call": 0.6,
-    "check": 0.6,
-    "raise": 0.45,  # Lower threshold for raise button
-    "min": 0.6,
-    "max": 0.55,    # Lower threshold for max button
-    "plus": 0.55,   # Lower threshold for plus button
-    "minus": 0.55,  # Lower threshold for minus button
-    "pot": 0.6,
-    "fifty_percent": 0.6
+    "fold": 0.7,
+    "call": 0.7,
+    "check": 0.7,
+    "raise": 0.7,
 }
 
-# Expected relative positions (approximate)
-BUTTON_POSITION_RULES = {
-    "fold": {"x_range": (0.6, 0.95), "y_range": (0.5, 0.8)},
-    "call": {"x_range": (0.6, 0.95), "y_range": (0.5, 0.8)},
-    "check": {"x_range": (0.6, 0.95), "y_range": (0.5, 0.8)},
-    "raise": {"x_range": (0.6, 0.95), "y_range": (0.5, 0.8)},
-    "min": {"x_range": (0.6, 0.95), "y_range": (0.5, 0.8)},
-    "max": {"x_range": (0.6, 0.95), "y_range": (0.5, 0.8)},
-    "plus": {"x_range": (0.6, 0.95), "y_range": (0.5, 0.9)},    # Expanded y range for plus
-    "minus": {"x_range": (0.6, 0.95), "y_range": (0.5, 0.9)},   # Expanded y range for minus
-    "pot": {"x_range": (0.6, 0.95), "y_range": (0.5, 0.8)},
-    "fifty_percent": {"x_range": (0.6, 0.95), "y_range": (0.5, 0.8)}
+# Define expected colors for each button in HSV ranges
+BUTTON_COLORS = {
+    "fold": {
+        "ranges": [
+            ((0, 100, 100), (10, 255, 255)),    # Red range 1
+            ((160, 100, 100), (180, 255, 255))  # Red range 2
+        ],
+        "min_ratio": 0.3
+    },
+    "call": {
+        "ranges": [
+            ((0, 100, 100), (10, 255, 255)),    # Red range 1
+            ((160, 100, 100), (180, 255, 255))  # Red range 2
+        ],
+        "min_ratio": 0.3
+    },
+    "check": {
+        "ranges": [
+            ((0, 100, 100), (10, 255, 255)),    # Red range 1
+            ((160, 100, 100), (180, 255, 255))  # Red range 2
+        ],
+        "min_ratio": 0.3
+    },
+    "raise": {
+        "ranges": [
+            ((0, 100, 100), (10, 255, 255)),    # Red range 1
+            ((160, 100, 100), (180, 255, 255))  # Red range 2
+        ],
+        "min_ratio": 0.3
+    }
 }
 
-# Button location cache
+# Simplify button locations cache
 BUTTON_LOCATIONS = {name: None for name in BUTTON_MAPPING.keys()}
 
 # Template images path
 TEMPLATE_DIR = Path("assets")
 
-def is_valid_button_position(button_name: str, x: int, y: int, frame_width: int, frame_height: int) -> bool:
+def check_button_color(button_name: str, frame: np.ndarray, x: int, y: int, frame_height: int, frame_width: int) -> bool:
     """
-    Check if button position is valid according to predefined rules
+    Check if the button region matches its expected color
     """
-    if button_name not in BUTTON_POSITION_RULES:
+    if button_name not in BUTTON_COLORS or frame is None:
         return True
-        
-    rules = BUTTON_POSITION_RULES[button_name]
-    x_ratio = x / frame_width
-    y_ratio = y / frame_height
+
+    # Extract button region
+    button_region = frame[max(0, y-10):min(frame_height, y+10), 
+                         max(0, x-10):min(frame_width, x+10)]
     
-    x_valid = rules["x_range"][0] <= x_ratio <= rules["x_range"][1]
-    y_valid = rules["y_range"][0] <= y_ratio <= rules["y_range"][1]
-    
-    if not (x_valid and y_valid):
-        logger.debug(f"Button {button_name} position ({x_ratio:.2f}, {y_ratio:.2f}) outside expected range")
+    if button_region.size == 0:
         return False
+
+    # Convert to HSV for better color detection
+    hsv = cv2.cvtColor(button_region, cv2.COLOR_BGR2HSV)
+    
+    # Get color configuration for this button
+    color_config = BUTTON_COLORS[button_name]
+    
+    # Initialize combined mask
+    combined_mask = np.zeros(button_region.shape[:2], dtype=np.uint8)
+    
+    # Check each color range
+    for lower, upper in color_config["ranges"]:
+        lower_bound = np.array(lower)
+        upper_bound = np.array(upper)
+        mask = cv2.inRange(hsv, lower_bound, upper_bound)
+        combined_mask = cv2.bitwise_or(combined_mask, mask)
+    
+    # Calculate ratio of pixels matching the color
+    color_ratio = np.sum(combined_mask > 0) / combined_mask.size
+    
+    # Debug logging
+    logger.debug(f"Button {button_name} color ratio: {color_ratio:.3f}")
+    
+    return color_ratio >= color_config["min_ratio"]
+
+def is_valid_button_position(button_name: str, x: int, y: int, frame_width: int, frame_height: int, frame: np.ndarray = None) -> bool:
+    """
+    Validate button position and color
+    """
+    # Check color validation for all buttons
+    if not check_button_color(button_name, frame, x, y, frame_height, frame_width):
+        logger.debug(f"Color validation failed for {button_name}")
+        return False
+    
     return True
 
 def check_mutual_exclusion(button_name: str, x: int, y: int, detected_buttons: Dict[str, Tuple[int, int]]) -> bool:
@@ -220,7 +255,7 @@ def locate_button(button_name: str, confidence: float = 0.6, detected_buttons: D
             color = (0, 0, 255)  # Red for invalid matches
             
             # Check position validity
-            position_valid = is_valid_button_position(button_name, center_x, center_y, screen_width, screen_height)
+            position_valid = is_valid_button_position(button_name, center_x, center_y, screen_width, screen_height, screen)
             if position_valid:
                 color = (255, 0, 0)  # Blue for position-valid matches
                 
@@ -247,7 +282,7 @@ def locate_button(button_name: str, confidence: float = 0.6, detected_buttons: D
             logger.debug(f"Checking match for {button_name} at ({x_ratio:.2f}, {y_ratio:.2f}) with confidence {match_confidence:.3f}")
             
             # Validate position
-            if not is_valid_button_position(button_name, center_x, center_y, screen_width, screen_height):
+            if not is_valid_button_position(button_name, center_x, center_y, screen_width, screen_height, screen):
                 logger.debug(f"Position validation failed for {button_name}")
                 continue
                 
@@ -283,7 +318,7 @@ def setup_button_locations(confidence: float = 0.6) -> bool:
     """
     detected = {}
     
-    # First locate the main action buttons in specific order
+    # Locate the main action buttons
     main_buttons = ["call", "fold", "raise"]  # Check call first as it's most reliable
     for button_name in main_buttons:
         location = locate_button(button_name, confidence, detected)
@@ -297,14 +332,6 @@ def setup_button_locations(confidence: float = 0.6) -> bool:
         if location:
             detected["check"] = location
             BUTTON_LOCATIONS["check"] = location
-    
-    # Then locate the secondary buttons
-    secondary_buttons = ["min", "max", "pot", "fifty_percent", "plus", "minus"]
-    for button_name in secondary_buttons:
-        location = locate_button(button_name, confidence, detected)
-        if location:
-            detected[button_name] = location
-            BUTTON_LOCATIONS[button_name] = location
     
     # Check if we have the minimum required buttons
     has_call_or_check = bool(BUTTON_LOCATIONS.get("call") or BUTTON_LOCATIONS.get("check"))
@@ -456,22 +483,13 @@ def execute_raise(amount: float) -> bool:
         amount: Raise amount
     """
     try:
-        # 1. Click raise button
+        # Click raise button
         if not BUTTON_LOCATIONS["raise"]:
             logger.error("Raise button not found")
             return False
         
         pyautogui.click(BUTTON_LOCATIONS["raise"])
-        time.sleep(0.5)
-        
-        # 2. Adjust amount
-        if not adjust_raise_amount(amount):
-            logger.error("Failed to adjust raise amount")
-            return False
-        
-        # 3. Confirm raise
-        pyautogui.click(BUTTON_LOCATIONS["raise"])
-        logger.info(f"Executed raise: {amount}")
+        logger.info(f"Executed raise")
         return True
         
     except Exception as e:
