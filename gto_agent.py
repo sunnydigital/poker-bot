@@ -1,7 +1,12 @@
 from typing import List
 import itertools
+import random
+from collections import Counter
 
 def calculate_action(community_cards: List[str], hole_cards: List[str], currentPotValue: int, raiseAmounts: List[int]) -> str:
+    """
+    Calculate the optimal action for the agent based on the given game state.
+    """
     # Combine community cards and hole cards
     all_cards = community_cards + hole_cards
 
@@ -14,28 +19,32 @@ def calculate_action(community_cards: List[str], hole_cards: List[str], currentP
     call_amount = raisedBy
     pot_odds = call_amount / (currentPotValue + call_amount) if call_amount > 0 else 0
 
-    # Estimate the probability of winning based on hand strength
-    win_probability = hand_strength / 9
+    # Estimate the probability of winning based on Monte Carlo simulation
+    win_probability = simulate_win_probability(community_cards, hole_cards)
 
-    # Make a decision based on hand strength and pot odds
+    # Calculate EV for Call and Raise
+    ev_call = win_probability * (currentPotValue + call_amount) - (1 - win_probability) * call_amount
+    ev_raise = win_probability * (currentPotValue + 2 * call_amount) - (1 - win_probability) * 2 * call_amount
+
+    # Make a decision based on EV and pot odds
     if not community_cards:
         # Pre-flop strategy
-        if hand_strength < 1.45:
+        if hand_strength < 1.5:
             return "fold"
         if betsBeenMade:
-            if win_probability > pot_odds / 2:
-                if win_probability > 0.7:  # Strong hand
+            if ev_call > 0:
+                if ev_raise > ev_call * 1.2:  # Strong hand
                     return "raise"
                 return "call"
             else:
                 return "fold"
-        return "raise" if win_probability > 0.6 else "call"
+        return "raise" if hand_strength > 2 else "call"
     else:
         # Post-flop strategy
         if betsBeenMade:
-            if win_probability > pot_odds * 1.5:  # Very strong hand
+            if ev_raise > ev_call * 1.5:  # Very strong hand
                 return "raise"
-            elif win_probability > pot_odds:
+            elif ev_call > 0:
                 return "call"
             else:
                 return "fold"
@@ -45,12 +54,22 @@ def calculate_action(community_cards: List[str], hole_cards: List[str], currentP
             return "check"
 
 def evaluate_hand_strength(cards: List[str], hole_cards: List[str]) -> float:
+    """
+    Evaluate the strength of the hand based on common poker rules.
+    """
     # Convert cards to a format suitable for evaluation
     formatted_cards = [card.split('-') for card in cards]
-    ranks = [rank for rank, _ in formatted_cards]
+    ranks = [rank for rank, _ in formatted_cards]  # Keep '10' as it is
     suits = [suit for _, suit in formatted_cards]
+
+    # Update rank_values to include '10' as a key
     rank_values = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14}
-    numeric_ranks = [rank_values[str(rank)] for rank in ranks]
+
+    # Convert ranks to numeric values using rank_values
+    try:
+        numeric_ranks = [rank_values[rank] for rank in ranks]
+    except KeyError as e:
+        raise ValueError(f"Invalid rank {e.args[0]} found in cards. Valid ranks are: {list(rank_values.keys())}")
 
     # Sort the numeric ranks in ascending order
     sorted_ranks = sorted(numeric_ranks)
@@ -76,43 +95,37 @@ def evaluate_hand_strength(cards: List[str], hole_cards: List[str]) -> float:
     else:
         hand_value = 1
 
+    # Evaluate hole cards
     hole_card_ranks = [rank_values[card.split('-')[0]] for card in hole_cards]
-    hole_card_suits = [card.split('-')[1] for card in hole_cards]
-
     high_card = max(hole_card_ranks)
-    low_card = min(hole_card_ranks)
 
-    # Calculate the value of the hole cards (0-1) based on their ranks and suits
-    hole_card_value = 0
-    if hole_card_suits[0] == hole_card_suits[1]:  # Suited cards
-        if high_card == 14:  # Ace
-            hole_card_value = 0.9
-        elif high_card >= 12:  # Queen or higher
-            hole_card_value = 0.8 - (high_card - 12) * 0.05
-        elif high_card >= 8:  # Ten or higher
-            hole_card_value = 0.6 - (high_card - 8) * 0.05
-        else:
-            hole_card_value = 0.4 - (high_card - 2) * 0.03
-    elif abs(high_card - low_card) <= 4:  # Connected cards
-        if high_card == 14:  # Ace
-            hole_card_value = 0.8
-        elif high_card >= 12:  # Queen or higher
-            hole_card_value = 0.7 - (high_card - 12) * 0.05
-        elif high_card >= 8:  # Ten or higher
-            hole_card_value = 0.5 - (high_card - 8) * 0.05
-        else:
-            hole_card_value = 0.3 - (high_card - 2) * 0.03
-    else:
-        if high_card == 14:  # Ace
-            hole_card_value = 0.7
-        elif high_card >= 12:  # Queen or higher
-            hole_card_value = 0.6 - (high_card - 12) * 0.1
-        elif high_card >= 8:  # Ten or higher
-            hole_card_value = 0.4 - (high_card - 8) * 0.05
-        else:
-            hole_card_value = 0.2 - (high_card - 2) * 0.02
+    # Add a slight bonus for high cards
+    hand_value += high_card / 14.0
 
-    return hand_value + hole_card_value
+    return hand_value
+
+def simulate_win_probability(community_cards: List[str], hole_cards: List[str], num_simulations: int = 1000) -> float:
+    """
+    Simulate the probability of winning using a Monte Carlo approach.
+    """
+    deck = [f"{rank}-{suit}" for rank in ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'] for suit in 'SHDC']
+    used_cards = set(community_cards + hole_cards)
+    remaining_deck = [card for card in deck if card not in used_cards]
+    wins = 0
+
+    for _ in range(num_simulations):
+        random.shuffle(remaining_deck)
+        opponent_hole_cards = remaining_deck[:2]
+        remaining_community_cards = remaining_deck[2:5-len(community_cards)]
+        final_community_cards = community_cards + remaining_community_cards
+
+        player_score = evaluate_hand_strength(final_community_cards + hole_cards, hole_cards)
+        opponent_score = evaluate_hand_strength(final_community_cards + opponent_hole_cards, opponent_hole_cards)
+
+        if player_score > opponent_score:
+            wins += 1
+
+    return wins / num_simulations
 
 def is_flush(suits: List[str]) -> bool:
     return any(len(set(hand)) == 1 for hand in itertools.combinations(suits, 5))
@@ -122,21 +135,19 @@ def is_straight(sorted_ranks: List[int]) -> bool:
               for hand in itertools.combinations(sorted_ranks, 5))
 
 def is_four_of_a_kind(ranks: List[int]) -> bool:
-    return any(any(hand.count(rank) == 4 for rank in hand)
-              for hand in itertools.combinations(ranks, 5))
+    return max(Counter(ranks).values()) == 4
 
 def is_full_house(ranks: List[int]) -> bool:
-    return any(is_three_of_a_kind(hand) and is_one_pair(hand)
-              for hand in itertools.combinations(ranks, 5))
+    rank_counts = Counter(ranks).values()
+    return 3 in rank_counts and 2 in rank_counts
 
 def is_three_of_a_kind(ranks: List[int]) -> bool:
-    return any(any(hand.count(rank) == 3 for rank in hand)
-              for hand in itertools.combinations(ranks, 5))
+    return max(Counter(ranks).values()) == 3
 
 def is_two_pair(ranks: List[int]) -> bool:
-    return any(sum(1 for rank in set(hand) if hand.count(rank) == 2) == 2
-              for hand in itertools.combinations(ranks, 5))
+    rank_counts = Counter(ranks).values()
+    return list(rank_counts).count(2) == 2
 
 def is_one_pair(ranks: List[int]) -> bool:
-    return any(any(hand.count(rank) == 2 for rank in hand)
-              for hand in itertools.combinations(ranks, 5)) 
+    rank_counts = Counter(ranks).values()
+    return 2 in rank_counts
