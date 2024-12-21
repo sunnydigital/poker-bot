@@ -6,7 +6,7 @@ import json
 from datetime import datetime
 from pathlib import Path
 from poker_agent import PokerAgent
-from rule_based_agent import calculate_action as rule_based_calculate_action
+from gto_agent import calculate_action as rule_based_calculate_action
 from random_agent import calculate_action as random_calculate_action
 
 # Constants
@@ -427,4 +427,4 @@ if __name__ == "__main__":
     llm_agent = PokerAgent(model_name="gpt-4o")
     
     num_hands = 100
-    results = simulate_game(env, rule_based_calculate_action, random_calculate_action, llm_agent, num_hands) 
+    results = simulate_game(env, gto_calculate_action, random_calculate_action, llm_agent, num_hands) 
